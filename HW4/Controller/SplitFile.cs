@@ -16,7 +16,7 @@ namespace HW4.Controller
             this.colection = aColection;
         }
 
-        public void SplitLISA()
+        public void SplitLISA() 
         {
             String[] arregloAux = new String[splittedCollection1.Count()];
             splittedCollection1 = colection.Split(new[] { "********************************************" }, StringSplitOptions.None);
