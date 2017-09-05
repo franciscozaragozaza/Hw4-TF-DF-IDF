@@ -14,7 +14,7 @@ namespace HW4.Controller
         SplitFile splitter;
         public LoadCollection()
 
-       {
+        {
             interfaz = new Form1();
 
         }
@@ -23,21 +23,21 @@ namespace HW4.Controller
             String error;
 
             //loads path
-            try 
+            try
             {
                 File.Exists(path);
                 interfaz.messageBox_message(path);
                 TextReader textReader = File.OpenText(path);
                 string content = new StreamReader(path, Encoding.UTF8).ReadToEnd();
-                
+
                 splitter = new SplitFile(content);
-                
+
                 //DIFERENTES CASOS DE SPLIT
 
                 splitter.SplitLISA();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 error = ex.ToString();
                 interfaz.messageBox_loaderAlert(error);
