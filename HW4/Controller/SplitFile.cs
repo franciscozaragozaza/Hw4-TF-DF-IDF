@@ -33,20 +33,31 @@ namespace HW4.Controller
             String indexSplitColection;
             String indexSplitTitle;
 
-            indexSplitColection = "********************************************";
+            indexSplitColection = "********************************************\r\n";
+
             splittedCollection1 = collection.Split(new[] { indexSplitColection }, StringSplitOptions.None);
-            String[] arregloAux = new String[splittedCollection1.Count()];
-            //Se crea un arreglo de arreglos del tamaño necesario.
+
+            String[] arregloAux = new String[3];
+            //Se crea un arreglo bidimensional del tamaño necesario.
             String[,] matrix = new String[splittedCollection1.Count(), 3];
 
             for (int i = 0; i < splittedCollection1.Count(); i++)
             {
-                matrix[i, 0] = "ID";
-                matrix[i, 1] = "Título";
-                matrix[i, 2] = "Texto";
-                // Vamos a ocupar substring e index of para obtener el titulo, id y texto separados de splittedCollection1 :3 :*
+                //
+                //splittedCollection1[i].Split(new[] { "\r\n" }, StringSplitOptions.None);
+                try
+                {
+                    matrix[i, 0] = splittedCollection1[i].Substring(0, splittedCollection1[i].IndexOf("\r\n"));
+                    matrix[i, 1] = matrix[i,0].Substring(matrix[i,0].Length-2 , matrix[i,0].Length);
+                    matrix[i, 2] = "Texto";
+                }
+                catch
+                {
 
+                }
+                // Vamos a ocupar substring e index of para obtener el titulo, id y texto separados de splittedCollection1 :3 :*
             }
+            
             indexSplitTitle = "\r\n";
 
         }
