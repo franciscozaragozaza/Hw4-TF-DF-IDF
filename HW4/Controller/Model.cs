@@ -8,7 +8,8 @@ namespace HW4.Controller
 {
     class Model
     {
-        public void DocumentFrequency()
+
+        public void DocumentFrequency(String Term)
         {
 
         }

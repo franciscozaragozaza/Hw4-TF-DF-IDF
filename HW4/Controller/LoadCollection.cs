@@ -12,10 +12,11 @@ namespace HW4.Controller
 
         Form1 interfaz;
         SplitFile splitter;
+        Operations operation;
         public LoadCollection()
-
         {
             interfaz = new Form1();
+            operation = new Operations();
 
         }
         public void LoadFile(String path)
@@ -27,15 +28,14 @@ namespace HW4.Controller
             {
                 File.Exists(path);
                 interfaz.messageBox_message(path);
+
                 TextReader textReader = File.OpenText(path);
+
                 string content = new StreamReader(path, Encoding.UTF8).ReadToEnd();
 
                 splitter = new SplitFile(content);
 
-                //DIFERENTES CASOS DE SPLIT
-
                 splitter.SplitLISA();
-
             }
             catch (Exception ex)
             {
