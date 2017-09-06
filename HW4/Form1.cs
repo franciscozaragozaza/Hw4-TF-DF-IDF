@@ -24,13 +24,19 @@ namespace HW4
             loader = new Controller.LoadCollection();
             String path = "";
 
-            OpenFileDialog file = new OpenFileDialog();
-            if (file.ShowDialog() == DialogResult.OK)
+            try
             {
-                path = file.FileName;
-            }
+                OpenFileDialog file = new OpenFileDialog();
+                if (file.ShowDialog() == DialogResult.OK)
+                {
+                    path = file.FileName;
+                    loader.LoadFile(path);
+                }
 
-            loader.LoadFile(path);
+                
+
+            }
+            catch { }
 
         }
 
