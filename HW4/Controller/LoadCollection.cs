@@ -22,10 +22,15 @@ namespace HW4.Controller
         public void LoadFile(String path)
         {
             String error;
-
+            String[,] matrix;
+            String[] terms;
+            String searchTerm;
+            String searchDocument;
             //loads path
             try
             {
+                searchDocument = "INDIAN LIBRARY SCIENCE LITERATURE.";
+                searchTerm= "OF";
                 File.Exists(path);
 
                 interfaz.messageBox_message(path);
@@ -35,10 +40,10 @@ namespace HW4.Controller
                 string content = new StreamReader(path, Encoding.UTF8).ReadToEnd();
 
                 splitter = new SplitFile(content);
-                String[,] matrix= splitter.SplitLISA();
+                matrix = splitter.SplitLISA();
+                terms = operation.OrderCollectionTerms(splitter.SplitLISA());
 
-                operation.OrderCollectionTerms(splitter.SplitLISA());
-
+                operation.TermFrequencyTable(matrix, terms, searchTerm, searchDocument);
             }
             catch (Exception ex)
             {
