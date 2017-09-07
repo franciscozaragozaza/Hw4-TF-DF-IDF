@@ -19,21 +19,17 @@ namespace HW4.Controller
             operation = new Operations();
 
         }
-        public void LoadFile(String path)
+        public Double[] LoadFile(String path, String searchTerm, String searchDocument)
         {
             String error;
             String[,] matrix;
+            Double[] matrixError = new Double[0];
             String[] terms;
-            String searchTerm;
-            String searchDocument;
             //loads path
             try
             {
-                searchDocument = "INDIAN LIBRARY SCIENCE LITERATURE.";
-                searchTerm= "OF";
+               
                 File.Exists(path);
-
-                interfaz.messageBox_message(path + "\nwas loaded.",-1);
 
                 TextReader textReader = File.OpenText(path);
 
@@ -41,9 +37,40 @@ namespace HW4.Controller
 
                 splitter = new SplitFile(content);
                 matrix = splitter.SplitLISA();
+                
                 terms = operation.OrderCollectionTerms(splitter.SplitLISA());
 
-                operation.TermFrequencyTable(matrix, terms, searchTerm, searchDocument);
+                
+                return operation.TermFrequencyTable(matrix, terms, searchTerm, searchDocument);
+            }
+            catch (Exception ex)
+            {
+                error = ex.ToString();
+                interfaz.messageBox_loaderAlert(error);
+            }
+            return matrixError;
+        }
+
+        public void ShowDocumentTitles(String path)
+        {
+            String error;
+            String[,] matrix;
+            //loads path
+            try
+            {
+
+                File.Exists(path);
+
+                interfaz.messageBox_message(path + "\nwas loaded.", -1);
+
+                TextReader textReader = File.OpenText(path);
+
+                string content = new StreamReader(path, Encoding.UTF8).ReadToEnd();
+
+                splitter = new SplitFile(content);
+                matrix = splitter.SplitLISA();
+
+                interfaz.LoadDataTable(matrix); //Llena la tabla
             }
             catch (Exception ex)
             {

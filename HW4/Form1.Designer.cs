@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageDF_IDF = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button_CalculateDFandIDF = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox_InverseDF = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,11 +47,13 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_CalculateDFandIDF = new System.Windows.Forms.Button();
+            this.label_Document = new System.Windows.Forms.Label();
+            this.textBox_DocumentTitle = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.tabPageDF_IDF.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -69,8 +71,10 @@
             // 
             // tabPageDF_IDF
             // 
-            this.tabPageDF_IDF.Controls.Add(this.button_CalculateDFandIDF);
             this.tabPageDF_IDF.Controls.Add(this.dataGridView1);
+            this.tabPageDF_IDF.Controls.Add(this.label_Document);
+            this.tabPageDF_IDF.Controls.Add(this.textBox_DocumentTitle);
+            this.tabPageDF_IDF.Controls.Add(this.button_CalculateDFandIDF);
             this.tabPageDF_IDF.Controls.Add(this.label5);
             this.tabPageDF_IDF.Controls.Add(this.textBox_InverseDF);
             this.tabPageDF_IDF.Controls.Add(this.label3);
@@ -86,13 +90,17 @@
             this.tabPageDF_IDF.Text = "DF&IDF";
             this.tabPageDF_IDF.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // button_CalculateDFandIDF
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 256);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(749, 334);
-            this.dataGridView1.TabIndex = 34;
+            this.button_CalculateDFandIDF.Enabled = false;
+            this.button_CalculateDFandIDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.button_CalculateDFandIDF.Location = new System.Drawing.Point(478, 157);
+            this.button_CalculateDFandIDF.Name = "button_CalculateDFandIDF";
+            this.button_CalculateDFandIDF.Size = new System.Drawing.Size(273, 35);
+            this.button_CalculateDFandIDF.TabIndex = 36;
+            this.button_CalculateDFandIDF.Text = "Calculate DF and IDF";
+            this.button_CalculateDFandIDF.UseVisualStyleBackColor = true;
+            this.button_CalculateDFandIDF.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button_CalculateDFandIDF_MouseClick);
             // 
             // label5
             // 
@@ -227,17 +235,31 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // button_CalculateDFandIDF
+            // label_Document
             // 
-            this.button_CalculateDFandIDF.Enabled = false;
-            this.button_CalculateDFandIDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.button_CalculateDFandIDF.Location = new System.Drawing.Point(3, 81);
-            this.button_CalculateDFandIDF.Name = "button_CalculateDFandIDF";
-            this.button_CalculateDFandIDF.Size = new System.Drawing.Size(273, 35);
-            this.button_CalculateDFandIDF.TabIndex = 36;
-            this.button_CalculateDFandIDF.Text = "Calculate DF and IDF";
-            this.button_CalculateDFandIDF.UseVisualStyleBackColor = true;
-            this.button_CalculateDFandIDF.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button_CalculateDFandIDF_MouseClick);
+            this.label_Document.AutoSize = true;
+            this.label_Document.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.label_Document.Location = new System.Drawing.Point(6, 84);
+            this.label_Document.Name = "label_Document";
+            this.label_Document.Size = new System.Drawing.Size(166, 29);
+            this.label_Document.TabIndex = 38;
+            this.label_Document.Text = "Document title";
+            // 
+            // textBox_DocumentTitle
+            // 
+            this.textBox_DocumentTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.textBox_DocumentTitle.Location = new System.Drawing.Point(4, 114);
+            this.textBox_DocumentTitle.Name = "textBox_DocumentTitle";
+            this.textBox_DocumentTitle.Size = new System.Drawing.Size(272, 35);
+            this.textBox_DocumentTitle.TabIndex = 37;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(11, 256);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.TabIndex = 39;
             // 
             // Form1
             // 
@@ -255,9 +277,9 @@
             this.tabControl.ResumeLayout(false);
             this.tabPageDF_IDF.ResumeLayout(false);
             this.tabPageDF_IDF.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -282,8 +304,10 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button_CalculateDFandIDF;
+        private System.Windows.Forms.Label label_Document;
+        private System.Windows.Forms.TextBox textBox_DocumentTitle;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

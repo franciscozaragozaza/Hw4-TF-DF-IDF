@@ -13,8 +13,11 @@ namespace HW4
 {
     public partial class Form1 : Form
     {
-        Controller.LoadCollection loader;
+
+        Controller.LoadCollection Loader;
         Controller.Wrapper Control;
+
+        String path = "";
         public Form1()
         {
             InitializeComponent();
@@ -22,16 +25,14 @@ namespace HW4
         //Menú
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            loader = new Controller.LoadCollection();
-            String path = "";
-
+            Loader = new Controller.LoadCollection();
             try
             {
                 OpenFileDialog file = new OpenFileDialog();
                 if (file.ShowDialog() == DialogResult.OK)
                 {
                     path = file.FileName;
-                    loader.LoadFile(path);
+                    Loader.ShowDocumentTitles(path);
                 }
 
 
@@ -42,7 +43,18 @@ namespace HW4
         }
 
         //Botones
+        private void button_CalculateDFandIDF_MouseClick(object sender, MouseEventArgs e)
+        {
+            String searchDocument;
+            String searchTerm;
+            double[] df_idf = new double[2];
+            searchDocument = textBox_DocumentTitle.Text;
+            searchTerm = textBox_Term.Text;
+            df_idf=Loader.LoadFile(path, searchTerm, searchDocument);
+            textBox_DocumentFrequency.Text = df_idf[0].ToString();
+            textBox_InverseDF.Text = df_idf[1].ToString();
 
+        }
         /**
          * VENTANAS DE ALERTA
          * 
@@ -69,10 +81,20 @@ namespace HW4
             
         }
 
-        private void button_CalculateDFandIDF_MouseClick(object sender, MouseEventArgs e)
+        public void LoadDataTable(String[,] content)
         {
-            
+            DataTable table = new DataTable();
+            table.Columns.Add("Document ID", typeof(String));
+            table.Columns.Add("Document Title", typeof(String));
+            /*for(int i =0; i< content.GetLength(0); i++)
+            {
+                table.Rows.Add(content[i, 0], content[i,1]);
+            }*/
+            table.Rows.Add("Uno", "DOS");
+            dataGridView1.DataSource = table;
         }
+
+        //Changes
 
         private void textBox_Term_TextChanged(object sender, EventArgs e)
         {

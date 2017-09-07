@@ -8,10 +8,19 @@ namespace HW4.Controller
 {
     class Wrapper
     {
+        public void LoadFile(String path)
+        {
+
+        }
 
         public void DocumentFrequency(String Term)
         {
 
         }
+        public void InverseDocumentFrequency(String Term)
+        {
+
+        }
+
     }
 }

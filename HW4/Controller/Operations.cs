@@ -30,6 +30,10 @@ namespace HW4.Controller
             //Eliminar todos los signos de puntuación: ".;-,
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
+                try
+                {
+
+                
                 matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
                 matrix[i, 2] = matrix[i, 2].Replace(", ", " ");
                 matrix[i, 2] = matrix[i, 2].Replace(": ", " ");
@@ -46,6 +50,8 @@ namespace HW4.Controller
                 }
 
                 wordCount = wordCount + newMatrix.Count();
+                }
+                catch { }
             }
             noRepeatMatrix = newLinkedList.Distinct().ToArray();
             Array.Sort(noRepeatMatrix, StringComparer.InvariantCulture);
@@ -55,14 +61,13 @@ namespace HW4.Controller
 
         }
 
-        public int TermFrequencyTable(String[,] matrix, String[] terms, String searchTerm, String searchDocument)
+        public double[] TermFrequencyTable(String[,] matrix, String[] terms, String searchTerm, String searchDocument)
         {
-            int termFrequency = 0;
+            double[] termFrequency = { 0, 0 };
             int documentIndex;
-            int termIndex;
+            double aux1, aux2, aux3;
             documentIndex = 0;
-            termIndex = 0;
-            //Buscar el indice del documento:
+            //Buscar el indice del documento FALTA AGREGAR EXCEPTION EN CASO DE QUE NO LO ENCUENTRE
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 if (matrix[i, 1] == searchDocument)
@@ -75,11 +80,6 @@ namespace HW4.Controller
                     break;
                 }
                 documentIndex = documentIndex + 1;
-            }
-
-            if (documentIndex == -1)
-            {
-                return -1;
             }
 
             //Buscar el indice del termino:
@@ -98,15 +98,16 @@ namespace HW4.Controller
             var results = regex.Matches(matrix[documentIndex, 2]);
             foreach (Match match in results)
             {
-                termFrequency = termFrequency + 1;
+                termFrequency[0] = termFrequency[0] + 1;
             }
 
+            //Obtener IDF
+            aux1 = Convert.ToDouble(matrix.GetLength(0));
+            aux2 = termFrequency[0];
+            aux3 = aux1 / aux2;
+            termFrequency[1] = Math.Log10(aux3);
+
             return termFrequency;
-        }
-
-        public void DocumentFrequency()
-        {
-
         }
     }
 }
