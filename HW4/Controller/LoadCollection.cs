@@ -27,6 +27,7 @@ namespace HW4.Controller
             try
             {
                 File.Exists(path);
+
                 interfaz.messageBox_message(path);
 
                 TextReader textReader = File.OpenText(path);
@@ -34,8 +35,10 @@ namespace HW4.Controller
                 string content = new StreamReader(path, Encoding.UTF8).ReadToEnd();
 
                 splitter = new SplitFile(content);
+                String[,] matrix= splitter.SplitLISA();
 
-                splitter.SplitLISA();
+                operation.OrderCollectionTerms(splitter.SplitLISA());
+
             }
             catch (Exception ex)
             {

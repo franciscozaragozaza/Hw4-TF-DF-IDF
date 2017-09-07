@@ -20,15 +20,16 @@ namespace HW4.Controller
         {
             // Declaración de variables:
             String indexSplitColection;
-            //String indexSplitTitle;
-
             indexSplitColection = "********************************************\r\n";
-
             splittedCollection1 = collection.Split(new[] { indexSplitColection }, StringSplitOptions.None); //Separa la colección en un arreglo con n cantidad de documentos
-
             //Se crea un arreglo bidimensional del tamaño necesario.
             String[,] matrix = new String[splittedCollection1.Count(), 3];
+            matrix = CreateMatrix(splittedCollection1, matrix);
+            return matrix;
+        }
 
+        private String[,] CreateMatrix(String[] splitterCollection1, String[,] matrix)
+        {
             for (int i = 0; i < splittedCollection1.Count(); i++)
             {
                 int aux;
@@ -39,27 +40,39 @@ namespace HW4.Controller
                 {
                     if (splittedCollection1[i] != null)
                     {
-                        matrix[i, 0] = splittedCollection1[i].Substring(0, splittedCollection1[0].IndexOf("\r\n")); //substring desde el inicio de la string hasta el primer salto de línea
+                        if (splittedCollection1[i].IndexOf("\r\n") == -1)
+                        {
+                            matrix[i, 0] = splittedCollection1[i].Substring(0, splittedCollection1[i].IndexOf("\n")); //substring desde el inicio de la string hasta el primer salto de línea
 
-                        aux = splittedCollection1[i].IndexOf("\r\n", splittedCollection1[i].IndexOf("\r\n\r\n") + 1); //int aux es el indice del último caracter del título
-                        aux2 = splittedCollection1[i].IndexOf("\r\n") + 2; //int aux2 es el indice del primer caracter del título
+                            aux = splittedCollection1[i].IndexOf("\n", splittedCollection1[i].IndexOf("\n\n") + 1); //int aux es el indice del último caracter del título
+                            aux2 = splittedCollection1[i].IndexOf("\n") + 2; //int aux2 es el indice del primer caracter del título
 
-                        matrix[i, 1] = splittedCollection1[i].Substring(aux2, aux - aux2 - 2); //matrix en la posición Título ([n,2]) es una subcadena desde la posición aux2 que mide aux - aux2 caracteres, al final le restamos 2 porque \r\n se toma como un sólo caracter y queremos eliminarlos.
+                            matrix[i, 1] = splittedCollection1[i].Substring(aux2, aux - aux2 - 2).Replace("\n", " "); //matrix en la posición Título ([n,2]) es una subcadena desde la posición aux2 que mide aux - aux2 caracteres, al final le restamos 2 porque \n se toma como un sólo caracter y queremos eliminarlos.
 
-                        aux3 = splittedCollection1[i].IndexOf("\r\n", aux + 1) + 2;
+                            aux3 = splittedCollection1[i].IndexOf("\n", aux + 1) + 2;
 
-                        matrix[i, 2] = splittedCollection1[i].Substring(aux + 2, splittedCollection1[i].Length - (aux + 2)).Replace("\r\n", " ");
+                            matrix[i, 2] = splittedCollection1[i].Substring(aux + 2, splittedCollection1[i].Length - (aux + 2)).Replace("\n", " ");
+                        }
+                        else
+                        {
+                            matrix[i, 0] = splittedCollection1[i].Substring(0, splittedCollection1[i].IndexOf("\r\n")); //substring desde el inicio de la string hasta el primer salto de línea
+
+                            aux = splittedCollection1[i].IndexOf("\r\n", splittedCollection1[i].IndexOf("\r\n\r\n") + 1); //int aux es el indice del último caracter del título
+                            aux2 = splittedCollection1[i].IndexOf("\r\n") + 2; //int aux2 es el indice del primer caracter del título
+
+                            matrix[i, 1] = splittedCollection1[i].Substring(aux2, aux - aux2 - 2).Replace("\r\n", " "); //matrix en la posición Título ([n,2]) es una subcadena desde la posición aux2 que mide aux - aux2 caracteres, al final le restamos 2 porque \r\n se toma como un sólo caracter y queremos eliminarlos.
+
+                            aux3 = splittedCollection1[i].IndexOf("\r\n", aux + 1) + 2;
+
+                            matrix[i, 2] = splittedCollection1[i].Substring(aux + 2, splittedCollection1[i].Length - (aux + 2)).Replace("\r\n", " ");
+
+                        }
                     }
                 }
-                catch
-                {
+                catch { }
+            }//end for
 
-                }
-                // Vamos a ocupar substring e index of para obtener el titulo, id y texto separados de splittedCollection1 :3 :*
-            }
             return matrix;
-
-
         }
 
     }
