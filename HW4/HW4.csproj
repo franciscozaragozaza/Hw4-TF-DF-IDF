@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\LoadCollection.cs" />
-    <Compile Include="Controller\Model.cs" />
+    <Compile Include="Controller\Wrapper.cs" />
     <Compile Include="Controller\Operations.cs" />
     <Compile Include="Controller\SplitFile.cs" />
     <Compile Include="Form1.cs">
