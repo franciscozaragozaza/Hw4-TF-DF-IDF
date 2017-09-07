@@ -33,7 +33,7 @@ namespace HW4.Controller
                 searchTerm= "OF";
                 File.Exists(path);
 
-                interfaz.messageBox_message(path);
+                interfaz.messageBox_message(path + "\nwas loaded.",-1);
 
                 TextReader textReader = File.OpenText(path);
 

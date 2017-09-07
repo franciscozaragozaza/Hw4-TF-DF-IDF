@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW4.Controller
 {
-    class Model
+    class Wrapper
     {
 
         public void DocumentFrequency(String Term)
