@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageDF_IDF = new System.Windows.Forms.TabPage();
+            this.label_Document = new System.Windows.Forms.Label();
+            this.textBox_DocumentTitle = new System.Windows.Forms.TextBox();
             this.button_CalculateDFandIDF = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox_InverseDF = new System.Windows.Forms.TextBox();
@@ -47,13 +49,10 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label_Document = new System.Windows.Forms.Label();
-            this.textBox_DocumentTitle = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabControl.SuspendLayout();
             this.tabPageDF_IDF.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -71,7 +70,7 @@
             // 
             // tabPageDF_IDF
             // 
-            this.tabPageDF_IDF.Controls.Add(this.dataGridView1);
+            this.tabPageDF_IDF.Controls.Add(this.listBox1);
             this.tabPageDF_IDF.Controls.Add(this.label_Document);
             this.tabPageDF_IDF.Controls.Add(this.textBox_DocumentTitle);
             this.tabPageDF_IDF.Controls.Add(this.button_CalculateDFandIDF);
@@ -89,6 +88,24 @@
             this.tabPageDF_IDF.TabIndex = 0;
             this.tabPageDF_IDF.Text = "DF&IDF";
             this.tabPageDF_IDF.UseVisualStyleBackColor = true;
+            // 
+            // label_Document
+            // 
+            this.label_Document.AutoSize = true;
+            this.label_Document.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.label_Document.Location = new System.Drawing.Point(6, 84);
+            this.label_Document.Name = "label_Document";
+            this.label_Document.Size = new System.Drawing.Size(166, 29);
+            this.label_Document.TabIndex = 38;
+            this.label_Document.Text = "Document title";
+            // 
+            // textBox_DocumentTitle
+            // 
+            this.textBox_DocumentTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.textBox_DocumentTitle.Location = new System.Drawing.Point(4, 114);
+            this.textBox_DocumentTitle.Name = "textBox_DocumentTitle";
+            this.textBox_DocumentTitle.Size = new System.Drawing.Size(272, 35);
+            this.textBox_DocumentTitle.TabIndex = 37;
             // 
             // button_CalculateDFandIDF
             // 
@@ -118,7 +135,6 @@
             this.textBox_InverseDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.textBox_InverseDF.Location = new System.Drawing.Point(366, 116);
             this.textBox_InverseDF.Name = "textBox_InverseDF";
-            this.textBox_InverseDF.ReadOnly = true;
             this.textBox_InverseDF.Size = new System.Drawing.Size(387, 35);
             this.textBox_InverseDF.TabIndex = 31;
             // 
@@ -138,7 +154,6 @@
             this.textBox_DocumentFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.textBox_DocumentFrequency.Location = new System.Drawing.Point(366, 33);
             this.textBox_DocumentFrequency.Name = "textBox_DocumentFrequency";
-            this.textBox_DocumentFrequency.ReadOnly = true;
             this.textBox_DocumentFrequency.Size = new System.Drawing.Size(384, 35);
             this.textBox_DocumentFrequency.TabIndex = 29;
             // 
@@ -235,31 +250,15 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // label_Document
+            // listBox1
             // 
-            this.label_Document.AutoSize = true;
-            this.label_Document.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.label_Document.Location = new System.Drawing.Point(6, 84);
-            this.label_Document.Name = "label_Document";
-            this.label_Document.Size = new System.Drawing.Size(166, 29);
-            this.label_Document.TabIndex = 38;
-            this.label_Document.Text = "Document title";
-            // 
-            // textBox_DocumentTitle
-            // 
-            this.textBox_DocumentTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.textBox_DocumentTitle.Location = new System.Drawing.Point(4, 114);
-            this.textBox_DocumentTitle.Name = "textBox_DocumentTitle";
-            this.textBox_DocumentTitle.Size = new System.Drawing.Size(272, 35);
-            this.textBox_DocumentTitle.TabIndex = 37;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(11, 256);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 39;
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 25;
+            this.listBox1.Location = new System.Drawing.Point(11, 276);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(724, 254);
+            this.listBox1.TabIndex = 39;
             // 
             // Form1
             // 
@@ -279,7 +278,6 @@
             this.tabPageDF_IDF.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,7 +305,7 @@
         private System.Windows.Forms.Button button_CalculateDFandIDF;
         private System.Windows.Forms.Label label_Document;
         private System.Windows.Forms.TextBox textBox_DocumentTitle;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

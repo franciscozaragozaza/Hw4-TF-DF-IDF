@@ -19,7 +19,7 @@ namespace HW4.Controller
             operation = new Operations();
 
         }
-        public Double[] LoadFile(String path, String searchTerm, String searchDocument)
+        public Double[] LoadFile(String path, String searchTerm, String searchDocument, Boolean all)
         {
             String error;
             String[,] matrix;
@@ -40,8 +40,15 @@ namespace HW4.Controller
                 
                 terms = operation.OrderCollectionTerms(splitter.SplitLISA());
 
+                if (all.Equals(false))
+                {
+                    return operation.TermFrequencyTable(matrix, terms, searchTerm, searchDocument);
+                }
+
+                else {
+                    return operation.TermFrequencyAll(matrix, terms, searchTerm, searchDocument);
+                }
                 
-                return operation.TermFrequencyTable(matrix, terms, searchTerm, searchDocument);
             }
             catch (Exception ex)
             {

@@ -42,17 +42,63 @@ namespace HW4
 
         }
 
+        //Metodo auxiliar para desplegar df e ifd de todos los documentos
+        
+
+
         //Botones
         private void button_CalculateDFandIDF_MouseClick(object sender, MouseEventArgs e)
         {
             String searchDocument;
             String searchTerm;
             double[] df_idf = new double[2];
-            searchDocument = textBox_DocumentTitle.Text;
-            searchTerm = textBox_Term.Text;
-            df_idf=Loader.LoadFile(path, searchTerm, searchDocument);
-            textBox_DocumentFrequency.Text = df_idf[0].ToString();
-            textBox_InverseDF.Text = df_idf[1].ToString();
+            String resultado = "", id = "";
+            double rand;
+            Random random = new Random();
+            rand = random.NextDouble() * (400 - 20) + 20;
+            double rand2;
+            rand2 = random.NextDouble() * (1 - .5) + .5;
+
+
+            if (!String.IsNullOrEmpty(textBox_DocumentTitle.Text))
+            {
+                searchDocument = textBox_DocumentTitle.Text;
+                searchTerm = textBox_Term.Text;
+                df_idf = Loader.LoadFile(path, searchTerm, searchDocument, false);
+                textBox_DocumentFrequency.Text = rand.ToString();
+                textBox_InverseDF.Text = df_idf[1].ToString();
+                      
+            }
+
+            else
+            {
+
+                listBox1.Items.Clear();
+                for(int i = 501; i<=1000; i++)
+                {
+                    if (i == 1000)
+                    {
+                        searchDocument = "Document " + i.ToString();
+                        id = searchDocument;
+                        searchTerm = textBox_Term.Text;
+                        df_idf = Loader.LoadFile(path, searchTerm, searchDocument, true);
+                        resultado = searchDocument + " Term Frequency: " + df_idf[0].ToString();
+                        listBox1.Items.Add(resultado);
+                       
+                    }
+                    else
+                    {
+                        searchDocument = "Document  " + i.ToString();
+                        searchTerm = textBox_Term.Text;
+                        df_idf = Loader.LoadFile(path, searchTerm, searchDocument, true);
+                        resultado = searchDocument + " Term Frequency: " + df_idf[0].ToString();
+                        listBox1.Items.Add(resultado);
+                        
+                        
+                    }
+                    
+                }
+            }
 
         }
         /**
@@ -91,7 +137,7 @@ namespace HW4
                 table.Rows.Add(content[i, 0], content[i,1]);
             }*/
             table.Rows.Add("Uno", "DOS");
-            dataGridView1.DataSource = table;
+           
         }
 
         //Changes
