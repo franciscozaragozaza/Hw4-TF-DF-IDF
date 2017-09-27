@@ -52,7 +52,8 @@ namespace HW4
                 df_idf = Loader.calcularDf_IDF(path, searchTerm, searchDocument, true);
                 textBox_DocumentFrequency.Text = df_idf[0].ToString();
                 textBox_InverseDF.Text = df_idf[1].ToString();
-                
+
+            ReloadTables();
             
 
         }
@@ -163,6 +164,5 @@ namespace HW4
             termFreTableAdapter.Fill(dBDataSet.TermFre);
             termIdfTableAdapter.Fill(dBDataSet.TermIdf);
         }
-
     }
 }

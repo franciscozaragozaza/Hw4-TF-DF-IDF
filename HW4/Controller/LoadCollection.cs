@@ -59,7 +59,7 @@ namespace HW4.Controller
         {
             String[,] matrix;
             String error;
-          
+            int d;
             String[] terms;
             //loads path
             try
@@ -75,6 +75,7 @@ namespace HW4.Controller
                 matrix = splitter.SplitLISA();
 
                 terms = operation.OrderCollectionTerms(splitter.SplitLISA());
+                d = operation.Get_d(splitter.SplitLISA());
                 //Añadir terminos a tabla TermIdf
                 string connectionString; //debería ser variable de la clase.
                 string query = "INSERT INTO TermIdf (Term, idf) VALUES (@Term, @Idf)";
@@ -88,7 +89,7 @@ namespace HW4.Controller
                     //llena la tabla TermIdf de Term.
                     for (int i = 0; i < terms.Length; i++)
                     {
-
+                        idf = (float)operation.calcularDf_iDF(matrix, terms[i], d)[1];
                         if (terms[i] != null)
                         {
                             //idf = operation.calcularDf_iDF(matrix, terms[i]);
@@ -99,7 +100,7 @@ namespace HW4.Controller
                         }
                     }
                 }
-                return operation.calcularDf_iDF(matrix, searchTerm);
+                return operation.calcularDf_iDF(matrix, searchTerm,d);
 
             }
             catch (Exception ex)
