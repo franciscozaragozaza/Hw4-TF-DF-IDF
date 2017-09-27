@@ -28,17 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageDF_IDF = new System.Windows.Forms.TabPage();
             this.label_Document = new System.Windows.Forms.Label();
             this.textBox_DocumentTitle = new System.Windows.Forms.TextBox();
+            this.button_CalculateTf = new System.Windows.Forms.Button();
             this.button_CalculateDFandIDF = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.textBox_InverseDF = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBox1_TermFrequency = new System.Windows.Forms.TextBox();
             this.textBox_DocumentFrequency = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_Term = new System.Windows.Forms.TextBox();
             this.tabLogicalView = new System.Windows.Forms.TabPage();
@@ -49,10 +52,45 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.docsDataGridView = new System.Windows.Forms.DataGridView();
+            this.docsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dBDataSet = new HW4.DBDataSet();
+            this.docsTableAdapter = new HW4.DBDataSetTableAdapters.DocsTableAdapter();
+            this.tableAdapterManager = new HW4.DBDataSetTableAdapters.TableAdapterManager();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.queryResBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.queryResTableAdapter = new HW4.DBDataSetTableAdapters.QueryResTableAdapter();
+            this.queryResDataGridView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.termIdfBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.termIdfTableAdapter = new HW4.DBDataSetTableAdapters.TermIdfTableAdapter();
+            this.termIdfDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.termFreBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.termFreTableAdapter = new HW4.DBDataSetTableAdapters.TermFreTableAdapter();
+            this.termFreDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageDF_IDF.SuspendLayout();
+            this.tabLogicalView.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.docsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryResBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryResDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termIdfDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termFreDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -70,15 +108,18 @@
             // 
             // tabPageDF_IDF
             // 
-            this.tabPageDF_IDF.Controls.Add(this.listBox1);
+            this.tabPageDF_IDF.AutoScroll = true;
+            this.tabPageDF_IDF.Controls.Add(this.docsDataGridView);
             this.tabPageDF_IDF.Controls.Add(this.label_Document);
             this.tabPageDF_IDF.Controls.Add(this.textBox_DocumentTitle);
+            this.tabPageDF_IDF.Controls.Add(this.button_CalculateTf);
             this.tabPageDF_IDF.Controls.Add(this.button_CalculateDFandIDF);
-            this.tabPageDF_IDF.Controls.Add(this.label5);
             this.tabPageDF_IDF.Controls.Add(this.textBox_InverseDF);
             this.tabPageDF_IDF.Controls.Add(this.label3);
+            this.tabPageDF_IDF.Controls.Add(this.textBox1_TermFrequency);
             this.tabPageDF_IDF.Controls.Add(this.textBox_DocumentFrequency);
             this.tabPageDF_IDF.Controls.Add(this.label2);
+            this.tabPageDF_IDF.Controls.Add(this.label4);
             this.tabPageDF_IDF.Controls.Add(this.label1);
             this.tabPageDF_IDF.Controls.Add(this.textBox_Term);
             this.tabPageDF_IDF.Location = new System.Drawing.Point(4, 22);
@@ -106,28 +147,32 @@
             this.textBox_DocumentTitle.Name = "textBox_DocumentTitle";
             this.textBox_DocumentTitle.Size = new System.Drawing.Size(272, 35);
             this.textBox_DocumentTitle.TabIndex = 37;
+            this.textBox_DocumentTitle.TextChanged += new System.EventHandler(this.textBox_DocumentTitle_TextChanged);
+            // 
+            // button_CalculateTf
+            // 
+            this.button_CalculateTf.Enabled = false;
+            this.button_CalculateTf.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.button_CalculateTf.Location = new System.Drawing.Point(3, 205);
+            this.button_CalculateTf.Name = "button_CalculateTf";
+            this.button_CalculateTf.Size = new System.Drawing.Size(273, 35);
+            this.button_CalculateTf.TabIndex = 36;
+            this.button_CalculateTf.Text = "Calculate TF";
+            this.button_CalculateTf.UseVisualStyleBackColor = true;
+            this.button_CalculateTf.Click += new System.EventHandler(this.button_CalculateTf_Click);
+            this.button_CalculateTf.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button_CalculateDFandIDF_MouseClick);
             // 
             // button_CalculateDFandIDF
             // 
             this.button_CalculateDFandIDF.Enabled = false;
             this.button_CalculateDFandIDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.button_CalculateDFandIDF.Location = new System.Drawing.Point(478, 157);
+            this.button_CalculateDFandIDF.Location = new System.Drawing.Point(3, 164);
             this.button_CalculateDFandIDF.Name = "button_CalculateDFandIDF";
             this.button_CalculateDFandIDF.Size = new System.Drawing.Size(273, 35);
             this.button_CalculateDFandIDF.TabIndex = 36;
             this.button_CalculateDFandIDF.Text = "Calculate DF and IDF";
             this.button_CalculateDFandIDF.UseVisualStyleBackColor = true;
             this.button_CalculateDFandIDF.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button_CalculateDFandIDF_MouseClick);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.label5.Location = new System.Drawing.Point(6, 224);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(158, 29);
-            this.label5.TabIndex = 33;
-            this.label5.Text = "Document list";
             // 
             // textBox_InverseDF
             // 
@@ -148,6 +193,16 @@
             this.label3.TabIndex = 30;
             this.label3.Text = "Term";
             // 
+            // textBox1_TermFrequency
+            // 
+            this.textBox1_TermFrequency.Cursor = System.Windows.Forms.Cursors.Default;
+            this.textBox1_TermFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.textBox1_TermFrequency.Location = new System.Drawing.Point(370, 196);
+            this.textBox1_TermFrequency.Name = "textBox1_TermFrequency";
+            this.textBox1_TermFrequency.Size = new System.Drawing.Size(384, 35);
+            this.textBox1_TermFrequency.TabIndex = 29;
+            this.textBox1_TermFrequency.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // textBox_DocumentFrequency
             // 
             this.textBox_DocumentFrequency.Cursor = System.Windows.Forms.Cursors.Default;
@@ -166,6 +221,16 @@
             this.label2.Size = new System.Drawing.Size(392, 29);
             this.label2.TabIndex = 28;
             this.label2.Text = "IDF ( Inverse Document Frequency)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.label4.Location = new System.Drawing.Point(511, 164);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(238, 29);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "TF(Term Frequency)";
             // 
             // label1
             // 
@@ -188,6 +253,12 @@
             // 
             // tabLogicalView
             // 
+            this.tabLogicalView.AutoScroll = true;
+            this.tabLogicalView.Controls.Add(this.termFreDataGridView);
+            this.tabLogicalView.Controls.Add(this.termIdfDataGridView);
+            this.tabLogicalView.Controls.Add(this.button1);
+            this.tabLogicalView.Controls.Add(this.textBox1);
+            this.tabLogicalView.Controls.Add(this.queryResDataGridView);
             this.tabLogicalView.Location = new System.Drawing.Point(4, 22);
             this.tabLogicalView.Name = "tabLogicalView";
             this.tabLogicalView.Padding = new System.Windows.Forms.Padding(3);
@@ -250,15 +321,191 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // listBox1
+            // docsDataGridView
             // 
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(11, 276);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(724, 254);
-            this.listBox1.TabIndex = 39;
+            this.docsDataGridView.AutoGenerateColumns = false;
+            this.docsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.docsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.titleDataGridViewTextBoxColumn,
+            this.textDataGridViewTextBoxColumn});
+            this.docsDataGridView.DataSource = this.docsBindingSource;
+            this.docsDataGridView.Location = new System.Drawing.Point(4, 246);
+            this.docsDataGridView.Name = "docsDataGridView";
+            this.docsDataGridView.Size = new System.Drawing.Size(749, 344);
+            this.docsDataGridView.TabIndex = 38;
+            // 
+            // docsBindingSource
+            // 
+            this.docsBindingSource.DataMember = "Docs";
+            this.docsBindingSource.DataSource = this.dBDataSet;
+            // 
+            // dBDataSet
+            // 
+            this.dBDataSet.DataSetName = "DBDataSet";
+            this.dBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // docsTableAdapter
+            // 
+            this.docsTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.DocsTableAdapter = this.docsTableAdapter;
+            this.tableAdapterManager.QueryResTableAdapter = null;
+            this.tableAdapterManager.TermFreTableAdapter = null;
+            this.tableAdapterManager.TermIdfTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = HW4.DBDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // titleDataGridViewTextBoxColumn
+            // 
+            this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
+            this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
+            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+            this.titleDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // textDataGridViewTextBoxColumn
+            // 
+            this.textDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.textDataGridViewTextBoxColumn.DataPropertyName = "Text";
+            this.textDataGridViewTextBoxColumn.HeaderText = "Content";
+            this.textDataGridViewTextBoxColumn.Name = "textDataGridViewTextBoxColumn";
+            // 
+            // queryResBindingSource
+            // 
+            this.queryResBindingSource.DataMember = "QueryRes";
+            this.queryResBindingSource.DataSource = this.dBDataSet;
+            // 
+            // queryResTableAdapter
+            // 
+            this.queryResTableAdapter.ClearBeforeFill = true;
+            // 
+            // queryResDataGridView
+            // 
+            this.queryResDataGridView.AutoGenerateColumns = false;
+            this.queryResDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.queryResDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.queryResDataGridView.DataSource = this.queryResBindingSource;
+            this.queryResDataGridView.Location = new System.Drawing.Point(6, 47);
+            this.queryResDataGridView.Name = "queryResDataGridView";
+            this.queryResDataGridView.Size = new System.Drawing.Size(745, 297);
+            this.queryResDataGridView.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.button1.Location = new System.Drawing.Point(478, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(273, 35);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "Search";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.textBox1.Location = new System.Drawing.Point(6, 6);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(466, 35);
+            this.textBox1.TabIndex = 37;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "DocId";
+            this.dataGridViewTextBoxColumn1.HeaderText = "DocId";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Similarity";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Similarity";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // termIdfBindingSource
+            // 
+            this.termIdfBindingSource.DataMember = "TermIdf";
+            this.termIdfBindingSource.DataSource = this.dBDataSet;
+            // 
+            // termIdfTableAdapter
+            // 
+            this.termIdfTableAdapter.ClearBeforeFill = true;
+            // 
+            // termIdfDataGridView
+            // 
+            this.termIdfDataGridView.AutoGenerateColumns = false;
+            this.termIdfDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.termIdfDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.termIdfDataGridView.DataSource = this.termIdfBindingSource;
+            this.termIdfDataGridView.Location = new System.Drawing.Point(6, 350);
+            this.termIdfDataGridView.Name = "termIdfDataGridView";
+            this.termIdfDataGridView.Size = new System.Drawing.Size(316, 222);
+            this.termIdfDataGridView.TabIndex = 39;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Term";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Term";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "idf";
+            this.dataGridViewTextBoxColumn4.HeaderText = "idf";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // termFreBindingSource
+            // 
+            this.termFreBindingSource.DataMember = "TermFre";
+            this.termFreBindingSource.DataSource = this.dBDataSet;
+            // 
+            // termFreTableAdapter
+            // 
+            this.termFreTableAdapter.ClearBeforeFill = true;
+            // 
+            // termFreDataGridView
+            // 
+            this.termFreDataGridView.AutoGenerateColumns = false;
+            this.termFreDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.termFreDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7});
+            this.termFreDataGridView.DataSource = this.termFreBindingSource;
+            this.termFreDataGridView.Location = new System.Drawing.Point(328, 350);
+            this.termFreDataGridView.Name = "termFreDataGridView";
+            this.termFreDataGridView.Size = new System.Drawing.Size(423, 222);
+            this.termFreDataGridView.TabIndex = 39;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Term";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Term";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "DocId";
+            this.dataGridViewTextBoxColumn6.HeaderText = "DocId";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "TermFrequency";
+            this.dataGridViewTextBoxColumn7.HeaderText = "TermFrequency";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             // 
             // Form1
             // 
@@ -273,11 +520,23 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Hw4: TF, DF, IDF";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl.ResumeLayout(false);
             this.tabPageDF_IDF.ResumeLayout(false);
             this.tabPageDF_IDF.PerformLayout();
+            this.tabLogicalView.ResumeLayout(false);
+            this.tabLogicalView.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.docsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryResBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryResDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termIdfDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termFreDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,11 +560,38 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button_CalculateDFandIDF;
         private System.Windows.Forms.Label label_Document;
         private System.Windows.Forms.TextBox textBox_DocumentTitle;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox textBox1_TermFrequency;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button_CalculateTf;
+        private DBDataSet dBDataSet;
+        private System.Windows.Forms.BindingSource docsBindingSource;
+        private DBDataSetTableAdapters.DocsTableAdapter docsTableAdapter;
+        private DBDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.DataGridView docsDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource queryResBindingSource;
+        private DBDataSetTableAdapters.QueryResTableAdapter queryResTableAdapter;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridView queryResDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.BindingSource termIdfBindingSource;
+        private DBDataSetTableAdapters.TermIdfTableAdapter termIdfTableAdapter;
+        private System.Windows.Forms.DataGridView termIdfDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.BindingSource termFreBindingSource;
+        private DBDataSetTableAdapters.TermFreTableAdapter termFreTableAdapter;
+        private System.Windows.Forms.DataGridView termFreDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
     }
 }
 

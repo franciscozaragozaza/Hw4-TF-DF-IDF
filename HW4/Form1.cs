@@ -34,71 +34,26 @@ namespace HW4
                     path = file.FileName;
                     Loader.ShowDocumentTitles(path);
                 }
-
-
+                docsTableAdapter.Fill(dBDataSet.Docs);
 
             }
             catch { }
 
+
         }
-
-        //Metodo auxiliar para desplegar df e ifd de todos los documentos
-        
-
-
         //Botones
         private void button_CalculateDFandIDF_MouseClick(object sender, MouseEventArgs e)
         {
             String searchDocument;
             String searchTerm;
-            double[] df_idf = new double[2];
-            String resultado = "", id = "";
-            double rand;
-            Random random = new Random();
-            rand = random.NextDouble() * (400 - 20) + 20;
-            double rand2;
-            rand2 = random.NextDouble() * (1 - .5) + .5;
-
-
-            if (!String.IsNullOrEmpty(textBox_DocumentTitle.Text))
-            {
-                searchDocument = textBox_DocumentTitle.Text;
+            double[] df_idf = new double[2];            
+                searchDocument = "";
                 searchTerm = textBox_Term.Text;
-                df_idf = Loader.LoadFile(path, searchTerm, searchDocument, false);
-                textBox_DocumentFrequency.Text = rand.ToString();
+                df_idf = Loader.calcularDf_IDF(path, searchTerm, searchDocument, true);
+                textBox_DocumentFrequency.Text = df_idf[0].ToString();
                 textBox_InverseDF.Text = df_idf[1].ToString();
-                      
-            }
-
-            else
-            {
-
-                listBox1.Items.Clear();
-                for(int i = 501; i<=1000; i++)
-                {
-                    if (i == 1000)
-                    {
-                        searchDocument = "Document " + i.ToString();
-                        id = searchDocument;
-                        searchTerm = textBox_Term.Text;
-                        df_idf = Loader.LoadFile(path, searchTerm, searchDocument, true);
-                        resultado = searchDocument + " Term Frequency: " + df_idf[0].ToString();
-                        listBox1.Items.Add(resultado);
-                       
-                    }
-                    else
-                    {
-                        searchDocument = "Document  " + i.ToString();
-                        searchTerm = textBox_Term.Text;
-                        df_idf = Loader.LoadFile(path, searchTerm, searchDocument, true);
-                        resultado = searchDocument + " Term Frequency: " + df_idf[0].ToString();
-                        listBox1.Items.Add(resultado);
-                        
-                        
-                    }
-                    
-                }
-            }
+                
+            
 
         }
         /**
@@ -132,10 +87,6 @@ namespace HW4
             DataTable table = new DataTable();
             table.Columns.Add("Document ID", typeof(String));
             table.Columns.Add("Document Title", typeof(String));
-            /*for(int i =0; i< content.GetLength(0); i++)
-            {
-                table.Rows.Add(content[i, 0], content[i,1]);
-            }*/
             table.Rows.Add("Uno", "DOS");
            
         }
@@ -153,5 +104,65 @@ namespace HW4
                 button_CalculateDFandIDF.Enabled = false;
             }
         }
+
+        private void button_CalculateDFandIDF_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        
+        
+
+        private void button_CalculateTf_Click(object sender, EventArgs e)
+        {
+            String searchDocument;
+            String searchTerm;
+            double[] df_idf = new double[2];
+            Double tf = 0;
+            searchDocument = textBox_DocumentTitle.Text;
+            searchTerm = textBox_Term.Text;
+            tf = Loader.LoadFile(path, searchTerm, searchDocument, false);
+            textBox1_TermFrequency.Text = tf.ToString();
+
+        }
+
+        private void textBox_DocumentTitle_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox_DocumentTitle.Text != String.Empty && textBox_Term.Text != String.Empty)
+            {
+                button_CalculateTf.Enabled = true;
+                button_CalculateDFandIDF.Enabled = false;
+            }
+            else
+            {
+                button_CalculateTf.Enabled = false;
+                button_CalculateDFandIDF.Enabled = true;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'dBDataSet.TermFre' table. You can move, or remove it, as needed.
+            try
+            {
+                docsTableAdapter.Fill(dBDataSet.Docs);
+                termFreTableAdapter.Fill(dBDataSet.TermFre);
+                termIdfTableAdapter.Fill(dBDataSet.TermIdf);
+            }
+            catch{ }
+        }
+
+        public void ReloadTables()
+        {
+            queryResTableAdapter.Fill(dBDataSet.QueryRes);
+            docsTableAdapter.Fill(dBDataSet.Docs);
+            termFreTableAdapter.Fill(dBDataSet.TermFre);
+            termIdfTableAdapter.Fill(dBDataSet.TermIdf);
+        }
+
     }
 }
