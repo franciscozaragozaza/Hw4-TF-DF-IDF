@@ -60,7 +60,6 @@ namespace HW4.Controller
         {
             String[,] matrix;
             String error;
-            int d;
             String[] terms;
             //loads path
             try
@@ -76,37 +75,10 @@ namespace HW4.Controller
                 matrix = splitter.SplitLISA();
 
                 terms = operation.OrderCollectionTerms(splitter.SplitLISA());
-                d = operation.Get_d(splitter.SplitLISA());
                 //Añadir terminos a tabla TermIdf
-                string connectionString;
-                string query = "INSERT INTO TermIdf (Term, idf) VALUES (@Term, @Idf)";
-                connectionString = ConfigurationManager.ConnectionStrings["HW4.Properties.Settings.DBConnectionString"].ConnectionString;
+                Fill_TermIdf(matrix, terms);
 
-                using (connection = new SqlConnection(connectionString))
-                    try
-                    {
-                        using (SqlCommand command = new SqlCommand(query, connection))
-                        {
-                            float idf = 0.5f;
-                            connection.Open();
-                            //llena la tabla TermIdf de Term.
-                            for (int i = 0; i < terms.Length; i++)
-                            {
-                                idf = (float)operation.calcularDf_iDF(matrix, terms[i], d)[1];
-                                if (terms[i] != null)
-                                {
-                                    //idf = operation.calcularDf_iDF(matrix, terms[i]);
-                                    command.Parameters.Clear();
-                                    command.Parameters.AddWithValue("@Term", terms[i]);
-                                    command.Parameters.AddWithValue("@Idf", idf);
-                                    command.ExecuteNonQuery();
-                                }
-                            }
-                        }
-                    }
-                    catch { }
-                
-                return operation.calcularDf_iDF(matrix, searchTerm,d);
+                return operation.calcularDf_iDF(matrix, searchTerm);
 
             }
             catch (Exception ex)
@@ -115,6 +87,67 @@ namespace HW4.Controller
                 interfaz.messageBox_loaderAlert(error);
             }
             return (new Double[] {0});
+        }
+
+        public void Fill_TermIdf(String[,] matrix, String[] terms)
+        {
+            string connectionString;
+            string query = "INSERT INTO TermIdf (Term, idf) VALUES (@Term, @Idf)";
+            connectionString = ConfigurationManager.ConnectionStrings["HW4.Properties.Settings.DBConnectionString"].ConnectionString;
+
+            using (connection = new SqlConnection(connectionString))
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        float idf = 0.5f;
+                        connection.Open();
+                        //llena la tabla TermIdf de Term.
+                        for (int i = 0; i < terms.Length; i++)
+                        {
+                            idf = (float)operation.calcularDf_iDF(matrix, terms[i])[1];
+                            if (terms[i] != null)
+                            {
+                                //idf = operation.calcularDf_iDF(matrix, terms[i]);
+                                command.Parameters.Clear();
+                                command.Parameters.AddWithValue("@Term", terms[i]);
+                                command.Parameters.AddWithValue("@Idf", idf);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                catch { }
+            
+            query = "INSERT INTO TermFre (Term, DocId, TermFrequency) VALUES (@Term, @DocId, @TermFreq)";
+            connectionString = ConfigurationManager.ConnectionStrings["HW4.Properties.Settings.DBConnectionString"].ConnectionString;
+
+            using (connection = new SqlConnection(connectionString))
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        float tf = 0;
+                        connection.Open();
+                        //llena la tabla de Term.
+                        for (int j = 0; j < matrix.GetLength(0); j++)
+                        {
+                            for (int i = 0; i < terms.Length; i++)
+                            {
+                                tf = (float)operation.TermFrequency(matrix, terms, terms[i], matrix[j, 1]);
+                                if (terms[i] != null || matrix[j, 1] != null)
+                                {
+                                    command.Parameters.Clear();
+                                    command.Parameters.AddWithValue("@Term", terms[i]);
+                                    command.Parameters.AddWithValue("@DocId", matrix[j, 0]);
+                                    command.Parameters.AddWithValue("@TermFreq", tf);
+                                    command.ExecuteNonQuery();
+                                }
+                            }
+                        }
+                    }
+                }
+                catch { }
         }
 
         public void ShowDocumentTitles(String path)

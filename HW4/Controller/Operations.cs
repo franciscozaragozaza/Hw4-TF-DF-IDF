@@ -62,51 +62,8 @@ namespace HW4.Controller
 
         }
 
-
-        public int Get_d(String[,] matrix)
-        {
-            int wordCount;
-            LinkedList<String> newLinkedList = new LinkedList<String>();
-            string[] newMatrix;
-            string[] finalMatrix;
-
-            wordCount = 0;
-
-            //Eliminar todos los signos de puntuación: ".;-,
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                try
-                {
-
-
-                    matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
-                    matrix[i, 2] = matrix[i, 2].Replace(", ", " ");
-                    matrix[i, 2] = matrix[i, 2].Replace(": ", " ");
-                    matrix[i, 2] = matrix[i, 2].Replace("; ", " ");
-                    matrix[i, 2] = matrix[i, 2].Replace("\" ", " ");
-                    matrix[i, 2] = matrix[i, 2].Replace("(", string.Empty);
-                    matrix[i, 2] = matrix[i, 2].Replace(")", string.Empty);
-
-                    newMatrix = matrix[i, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int j = 0; j < newMatrix.Count(); j++)
-                    {
-                        newLinkedList.AddLast(newMatrix[j]);
-                    }
-
-                    wordCount = wordCount + newMatrix.Count();
-                }
-                catch { }
-            }
-            finalMatrix = newLinkedList.ToArray();
-            int d;
-            d = finalMatrix.GroupBy(v => v).Max(group => group.Count());
-
-            return d;
-        }
-        
         //Para desplegar el idf y df de todo
-        public double[] calcularDf_iDF(String[,] matrix, String searchTerm,  int d)
+        public double[] calcularDf_iDF(String[,] matrix, String searchTerm)
         {
             double[] df_idf = { 0, 0 };
             int df = 0;
@@ -119,8 +76,6 @@ namespace HW4.Controller
             {
                 try
                 {
-
-
                     matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
                     matrix[i, 2] = matrix[i, 2].Replace(", ", " ");
                     matrix[i, 2] = matrix[i, 2].Replace(": ", " ");
@@ -135,18 +90,15 @@ namespace HW4.Controller
                 catch { }
             }
             //CONTEO DE PALABRAS
-            
+
+            searchTerm = " " + searchTerm + " ";
             for (int i =0; i < matrix.GetLength(0); i++)
             {
                 if (matrix[i, 2].Contains(searchTerm))
                 {
                     df++;
-                    
                 }
-                else
-                {
-
-                }
+                else { }
             }
 
             df_idf[0] = df;
@@ -158,9 +110,10 @@ namespace HW4.Controller
                 df_idf[1] = 0;
             }
             else
-            {
+            {                    
                 aux3 = matrix.GetLength(0) / aux2;
                 df_idf[1] = Math.Log10(aux3);
+                
             }
 
             return df_idf;
@@ -172,7 +125,8 @@ namespace HW4.Controller
             double[] df_idf = { 0, 0 };
             double tf = 0;
             int documentIndex;
-            double aux1;
+            int aux1=0;
+            string[] arrayAux;
             documentIndex = 0;
             //Buscar el indice del documento FALTA AGREGAR EXCEPTION EN CASO DE QUE NO LO ENCUENTRE
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -183,7 +137,6 @@ namespace HW4.Controller
                     break;
                 }
             }
-
             //Buscar el indice del termino:
 
             //Quitar signos del texto
@@ -196,18 +149,32 @@ namespace HW4.Controller
             matrix[documentIndex, 2] = matrix[documentIndex, 2].Replace(")", string.Empty);
 
             //Calcular TF de un documento especifico
+            arrayAux = matrix[documentIndex, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < arrayAux.GetLength(0); i++)
+            {
+                if (arrayAux[i].Equals(searchTerm))
+                {
+                    aux1++;
+                }
+            }
+            /*
+            searchTerm = " " + searchTerm + " ";
+
             Regex regex = new Regex(searchTerm);
             var results = regex.Matches(matrix[documentIndex, 2]);
+            
             foreach (Match match in results)
             {
-                if(match.Length == searchTerm.Length)
+                if(match.Value.Equals(searchTerm))
                 {
                     tf = tf + 1;
                 }
                 
             }
-            
+
             aux1 = Convert.ToDouble(matrix.GetLength(0));
+            */
             return tf;
         }
     }

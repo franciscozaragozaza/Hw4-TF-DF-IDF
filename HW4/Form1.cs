@@ -160,5 +160,12 @@ namespace HW4
             termFreTableAdapter.Fill(dBDataSet.TermFre);
             termIdfTableAdapter.Fill(dBDataSet.TermIdf);
         }
+
+
+        //BUSQUEDA
+        private void button_Search_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -52,13 +52,8 @@
             this.textBox_Term = new System.Windows.Forms.TextBox();
             this.tabLogicalView = new System.Windows.Forms.TabPage();
             this.termFreDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.termFreBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.termIdfDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.termIdfBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button_Search = new System.Windows.Forms.Button();
             this.textBox_Search = new System.Windows.Forms.TextBox();
@@ -78,6 +73,11 @@
             this.queryResTableAdapter = new HW4.DBDataSetTableAdapters.QueryResTableAdapter();
             this.termIdfTableAdapter = new HW4.DBDataSetTableAdapters.TermIdfTableAdapter();
             this.termFreTableAdapter = new HW4.DBDataSetTableAdapters.TermFreTableAdapter();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageDF_IDF.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.docsDataGridView)).BeginInit();
@@ -325,24 +325,6 @@
             this.termFreDataGridView.Size = new System.Drawing.Size(423, 222);
             this.termFreDataGridView.TabIndex = 39;
             // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Term";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Term";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "DocId";
-            this.dataGridViewTextBoxColumn6.HeaderText = "DocId";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "TermFrequency";
-            this.dataGridViewTextBoxColumn7.HeaderText = "TermFrequency";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
             // termFreBindingSource
             // 
             this.termFreBindingSource.DataMember = "TermFre";
@@ -361,18 +343,6 @@
             this.termIdfDataGridView.Size = new System.Drawing.Size(316, 222);
             this.termIdfDataGridView.TabIndex = 39;
             // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Term";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Term";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "idf";
-            this.dataGridViewTextBoxColumn4.HeaderText = "idf";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
             // termIdfBindingSource
             // 
             this.termIdfBindingSource.DataMember = "TermIdf";
@@ -388,6 +358,7 @@
             this.button_Search.TabIndex = 39;
             this.button_Search.Text = "Search";
             this.button_Search.UseVisualStyleBackColor = true;
+            this.button_Search.Click += new System.EventHandler(this.button_Search_Click);
             // 
             // textBox_Search
             // 
@@ -507,6 +478,40 @@
             // 
             this.termFreTableAdapter.ClearBeforeFill = true;
             // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Term";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Term";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "idf";
+            this.dataGridViewTextBoxColumn4.HeaderText = "idf";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Term";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Term";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "DocId";
+            this.dataGridViewTextBoxColumn6.HeaderText = "DocId";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "TermFrequency";
+            this.dataGridViewTextBoxColumn7.HeaderText = "TermFrequency";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -584,14 +589,14 @@
         private System.Windows.Forms.BindingSource termIdfBindingSource;
         private DBDataSetTableAdapters.TermIdfTableAdapter termIdfTableAdapter;
         private System.Windows.Forms.DataGridView termIdfDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.BindingSource termFreBindingSource;
         private DBDataSetTableAdapters.TermFreTableAdapter termFreTableAdapter;
         private System.Windows.Forms.DataGridView termFreDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }
 
