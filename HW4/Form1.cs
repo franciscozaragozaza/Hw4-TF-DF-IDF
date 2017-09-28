@@ -49,13 +49,11 @@ namespace HW4
             double[] df_idf = new double[2];            
                 searchDocument = "";
                 searchTerm = textBox_Term.Text;
-                df_idf = Loader.calcularDf_IDF(path, searchTerm, searchDocument, true);
+                df_idf = Loader.CalcularDf_IDF(path, searchTerm, searchDocument, true);
                 textBox_DocumentFrequency.Text = df_idf[0].ToString();
                 textBox_InverseDF.Text = df_idf[1].ToString();
 
             ReloadTables();
-            
-
         }
         /**
          * VENTANAS DE ALERTA
@@ -116,8 +114,6 @@ namespace HW4
 
         }
         
-        
-
         private void button_CalculateTf_Click(object sender, EventArgs e)
         {
             String searchDocument;

@@ -23,6 +23,7 @@ namespace HW4.Controller
             operation = new Operations();
 
         }
+
         public double LoadFile(String path, String searchTerm, String searchDocument, Boolean calcularDF_IDF)
         {
             String error;
@@ -55,7 +56,7 @@ namespace HW4.Controller
             return matrixError;
         }
 
-        public Double [] calcularDf_IDF(String path, String searchTerm, String searchDocument, Boolean calcularDF_IDF)
+        public Double [] CalcularDf_IDF(String path, String searchTerm, String searchDocument, Boolean calcularDF_IDF)
         {
             String[,] matrix;
             String error;
@@ -77,29 +78,34 @@ namespace HW4.Controller
                 terms = operation.OrderCollectionTerms(splitter.SplitLISA());
                 d = operation.Get_d(splitter.SplitLISA());
                 //Añadir terminos a tabla TermIdf
-                string connectionString; //debería ser variable de la clase.
+                string connectionString;
                 string query = "INSERT INTO TermIdf (Term, idf) VALUES (@Term, @Idf)";
                 connectionString = ConfigurationManager.ConnectionStrings["HW4.Properties.Settings.DBConnectionString"].ConnectionString;
 
                 using (connection = new SqlConnection(connectionString))
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    float idf = 0.5f;
-                    connection.Open();
-                    //llena la tabla TermIdf de Term.
-                    for (int i = 0; i < terms.Length; i++)
+                    try
                     {
-                        idf = (float)operation.calcularDf_iDF(matrix, terms[i], d)[1];
-                        if (terms[i] != null)
+                        using (SqlCommand command = new SqlCommand(query, connection))
                         {
-                            //idf = operation.calcularDf_iDF(matrix, terms[i]);
-                            command.Parameters.Clear();
-                            command.Parameters.AddWithValue("@Term", terms[i]);
-                            command.Parameters.AddWithValue("@Idf", idf);
-                            command.ExecuteNonQuery();
+                            float idf = 0.5f;
+                            connection.Open();
+                            //llena la tabla TermIdf de Term.
+                            for (int i = 0; i < terms.Length; i++)
+                            {
+                                idf = (float)operation.calcularDf_iDF(matrix, terms[i], d)[1];
+                                if (terms[i] != null)
+                                {
+                                    //idf = operation.calcularDf_iDF(matrix, terms[i]);
+                                    command.Parameters.Clear();
+                                    command.Parameters.AddWithValue("@Term", terms[i]);
+                                    command.Parameters.AddWithValue("@Idf", idf);
+                                    command.ExecuteNonQuery();
+                                }
+                            }
                         }
                     }
-                }
+                    catch { }
+                
                 return operation.calcularDf_iDF(matrix, searchTerm,d);
 
             }

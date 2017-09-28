@@ -60,8 +60,8 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.termIdfBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button_Search = new System.Windows.Forms.Button();
+            this.textBox_Search = new System.Windows.Forms.TextBox();
             this.queryResDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -300,8 +300,8 @@
             this.tabLogicalView.AutoScroll = true;
             this.tabLogicalView.Controls.Add(this.termFreDataGridView);
             this.tabLogicalView.Controls.Add(this.termIdfDataGridView);
-            this.tabLogicalView.Controls.Add(this.button1);
-            this.tabLogicalView.Controls.Add(this.textBox1);
+            this.tabLogicalView.Controls.Add(this.button_Search);
+            this.tabLogicalView.Controls.Add(this.textBox_Search);
             this.tabLogicalView.Controls.Add(this.queryResDataGridView);
             this.tabLogicalView.Location = new System.Drawing.Point(4, 22);
             this.tabLogicalView.Name = "tabLogicalView";
@@ -378,24 +378,24 @@
             this.termIdfBindingSource.DataMember = "TermIdf";
             this.termIdfBindingSource.DataSource = this.dBDataSet;
             // 
-            // button1
+            // button_Search
             // 
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.button1.Location = new System.Drawing.Point(478, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(273, 35);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_Search.Enabled = false;
+            this.button_Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.button_Search.Location = new System.Drawing.Point(478, 6);
+            this.button_Search.Name = "button_Search";
+            this.button_Search.Size = new System.Drawing.Size(273, 35);
+            this.button_Search.TabIndex = 39;
+            this.button_Search.Text = "Search";
+            this.button_Search.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBox_Search
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.textBox1.Location = new System.Drawing.Point(6, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(466, 35);
-            this.textBox1.TabIndex = 37;
+            this.textBox_Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.textBox_Search.Location = new System.Drawing.Point(6, 6);
+            this.textBox_Search.Name = "textBox_Search";
+            this.textBox_Search.Size = new System.Drawing.Size(466, 35);
+            this.textBox_Search.TabIndex = 37;
             // 
             // queryResDataGridView
             // 
@@ -576,8 +576,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource queryResBindingSource;
         private DBDataSetTableAdapters.QueryResTableAdapter queryResTableAdapter;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button_Search;
+        private System.Windows.Forms.TextBox textBox_Search;
         private System.Windows.Forms.DataGridView queryResDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
