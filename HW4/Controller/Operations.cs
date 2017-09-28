@@ -159,7 +159,7 @@ namespace HW4.Controller
             }
             else
             {
-                aux3 = d / aux2;
+                aux3 = matrix.GetLength(0) / aux2;
                 df_idf[1] = Math.Log10(aux3);
             }
 
