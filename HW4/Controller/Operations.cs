@@ -55,14 +55,14 @@ namespace HW4.Controller
             }
             finalMatrix = newLinkedList.ToArray();
             noRepeatMatrix = newLinkedList.Distinct().ToArray();
-            int d;
-            d = finalMatrix.GroupBy(v => v).Max(group => group.Count());
             Array.Sort(noRepeatMatrix, StringComparer.InvariantCulture);
 
             return noRepeatMatrix;
 
 
         }
+
+
         public int Get_d(String[,] matrix)
         {
             int wordCount;
@@ -104,21 +104,17 @@ namespace HW4.Controller
 
             return d;
         }
+        
         //Para desplegar el idf y df de todo
-
-
-        public double[] calcularDf_iDF(String[,] matrix, String searchTerm,  int d)
+        public double[] calcularDf_iDF(String[,] matrix, String searchTerm)
         {
             double[] df_idf = { 0, 0 };
             int df = 0;
-            int documentIndex;
-            double aux1=0, aux2, aux3;
-            documentIndex = 0;
+            double aux2, aux3;
+            int aux1 = 0;
             String newMatrix;
             
             //Buscar el indice del documento FALTA AGREGAR EXCEPTION EN CASO DE QUE NO LO ENCUENTRE
-
-
             //Buscar el indice del termino:
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
@@ -135,13 +131,14 @@ namespace HW4.Controller
                     matrix[i, 2] = matrix[i, 2].Replace(")", string.Empty);
 
                     newMatrix = matrix[i, 2];
-                    aux1 = aux1 + (double)Regex.Matches(newMatrix, searchTerm).Count;
+
+                   
+
                 }
                 catch { }
             }
             //CONTEO DE PALABRAS
             
-
             for (int i =0; i < matrix.GetLength(0); i++)
             {
                 if (matrix[i, 2].Contains(searchTerm))
@@ -159,28 +156,124 @@ namespace HW4.Controller
 
             //Obtener IDF palabra más repetida
             aux2 = df_idf[0];
-            if (aux1 == 0)
+            if (aux2 == 0)
             {
                 df_idf[1] = 0;
             }
             else
             {
-                aux3 = d / aux2;
+                aux3 = matrix.GetLength(0) / aux2;
                 df_idf[1] = Math.Log10(aux3);
             }
 
             return df_idf;
         }
 
+        public String[,] queryIdf(String[,] matrix, String query)
+        {
+            String[,] arraySim = new String[matrix.GetLength(0),2];
+            String[] newMatrix;
+            String[] querySplitted;
+            double idf, simi =0;
+            query = query.Replace(". ", " ");
+            query = query.Replace(", ", " ");
+            query = query.Replace(": ", " ");
+            query = query.Replace("; ", " ");
+            query = query.Replace("\" ", " ");
+            query = query.Replace("(", string.Empty);
+            query = query.Replace(")", string.Empty);
+            querySplitted = query.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i< matrix.GetLength(0); i++)
+            {
+                simi = 0;
+                matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace(", ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace(": ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace("; ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace("\" ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace("(", string.Empty);
+                matrix[i, 2] = matrix[i, 2].Replace(")", string.Empty);
+                newMatrix = matrix[i, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                for (int j = 0; j < querySplitted.Length; j++)
+                {
+                    // getOccurrences()
+                    if (getDF(querySplitted[j], matrix) == 0)
+                    {
+                        idf = 0;
+                    }
+                    else {  
+                    idf = Math.Log10(matrix.GetLength(0) / getDF(querySplitted[j], matrix));
+                    }
+
+                    simi = simi + (getOcurrences(querySplitted[j], newMatrix) * idf);
+                }
+                arraySim[i,0] = matrix[i, 0];
+                arraySim[i, 1] = simi.ToString();
+            }
+            
+
+
+
+            return arraySim;
+        }
+        private float getDF(String term, String[,] matrix)
+        {
+            String[] newMatrix;
+            int aux = 0;
+            int aux2 = 0;
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                aux = 0;
+                matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace(", ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace(": ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace("; ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace("\" ", " ");
+                matrix[i, 2] = matrix[i, 2].Replace("(", string.Empty);
+                matrix[i, 2] = matrix[i, 2].Replace(")", string.Empty);
+                newMatrix = matrix[i, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                for (int j = 0; j < newMatrix.Length; j++)
+                {
+                    if (newMatrix[j].Equals(term))
+                    {
+                        aux++;
+                    }
+                }
+                if (aux > 0)
+                {
+                    aux2++;
+                }
+            }
+            return (float)aux2;
+
+
+        }
+
+
+        private float getOcurrences(String term, String[] documento)
+        {
+            int aux = 0;
+            for (int i = 0; i < documento.Length; i++)
+            {
+                if (documento[i].Equals(term))
+                {
+                    aux++;
+                }
+            }
+                return aux;
+            }
 
         public double TermFrequency(String[,] matrix, String[] terms, String searchTerm, String searchDocument)
         {
             
             double[] df_idf = { 0, 0 };
-            double tf = 0, df = 0, idf = 0;
+            double tf = 0;
             int documentIndex;
-            double aux1, aux2, aux3;
+            double aux1 = 0;
             documentIndex = 0;
+            String[] arrayAux;
+            
             //Buscar el indice del documento FALTA AGREGAR EXCEPTION EN CASO DE QUE NO LO ENCUENTRE
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
@@ -189,15 +282,9 @@ namespace HW4.Controller
                     documentIndex = i;
                     break;
                 }
-                /*if (i == matrix.GetLength(1))
-                {
-                    documentIndex = -1;
-                    break;
-                }*/
             }
 
             //Buscar el indice del termino:
-            //termIndex = Array.IndexOf(terms, searchTerm);
 
             //Quitar signos del texto
             matrix[documentIndex, 2] = matrix[documentIndex, 2].Replace(". ", " ");
@@ -209,31 +296,17 @@ namespace HW4.Controller
             matrix[documentIndex, 2] = matrix[documentIndex, 2].Replace(")", string.Empty);
 
             //Calcular TF de un documento especifico
-            Regex regex = new Regex(searchTerm);
-            var results = regex.Matches(matrix[documentIndex, 2]);
-            foreach (Match match in results)
+
+            arrayAux = matrix[documentIndex, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+           
+            for(int i = 0; i< arrayAux.GetLength(0); i++)
             {
-                if(match.Length == searchTerm.Length)
+                if (arrayAux[i].Equals(searchTerm))
                 {
-                    tf = tf + 1;
+                    tf++;
                 }
-                
             }
-
-            //Obtener IDF
             aux1 = Convert.ToDouble(matrix.GetLength(0));
-           /* aux2 = termFrequency[0];
-            if(aux1 == 0 || aux2 == 0)
-            {
-                termFrequency[1] = 0;
-            }
-            else
-            {
-                aux3 = aux1 / aux2;
-                termFrequency[1] = Math.Log10(aux3);
-            }           */ 
-            
-
             return tf;
         }
     }

@@ -51,17 +51,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_Term = new System.Windows.Forms.TextBox();
             this.tabLogicalView = new System.Windows.Forms.TabPage();
-            this.termFreDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.termFreBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.termIdfDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.termIdfBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button_Search = new System.Windows.Forms.Button();
+            this.textBox_Search = new System.Windows.Forms.TextBox();
             this.queryResDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,9 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBDataSet)).BeginInit();
             this.tabLogicalView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.termFreDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.termIdfDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResBindingSource)).BeginInit();
@@ -127,7 +118,7 @@
             this.tabPageDF_IDF.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageDF_IDF.Size = new System.Drawing.Size(758, 598);
             this.tabPageDF_IDF.TabIndex = 0;
-            this.tabPageDF_IDF.Text = "DF&IDF";
+            this.tabPageDF_IDF.Text = "TF, DF&IDF";
             this.tabPageDF_IDF.UseVisualStyleBackColor = true;
             // 
             // docsDataGridView
@@ -204,7 +195,6 @@
             this.button_CalculateTf.Text = "Calculate TF";
             this.button_CalculateTf.UseVisualStyleBackColor = true;
             this.button_CalculateTf.Click += new System.EventHandler(this.button_CalculateTf_Click);
-            this.button_CalculateTf.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button_CalculateDFandIDF_MouseClick);
             // 
             // button_CalculateDFandIDF
             // 
@@ -298,104 +288,45 @@
             // tabLogicalView
             // 
             this.tabLogicalView.AutoScroll = true;
-            this.tabLogicalView.Controls.Add(this.termFreDataGridView);
-            this.tabLogicalView.Controls.Add(this.termIdfDataGridView);
-            this.tabLogicalView.Controls.Add(this.button1);
-            this.tabLogicalView.Controls.Add(this.textBox1);
+            this.tabLogicalView.Controls.Add(this.button_Search);
+            this.tabLogicalView.Controls.Add(this.textBox_Search);
             this.tabLogicalView.Controls.Add(this.queryResDataGridView);
             this.tabLogicalView.Location = new System.Drawing.Point(4, 22);
             this.tabLogicalView.Name = "tabLogicalView";
             this.tabLogicalView.Padding = new System.Windows.Forms.Padding(3);
             this.tabLogicalView.Size = new System.Drawing.Size(758, 598);
             this.tabLogicalView.TabIndex = 1;
-            this.tabLogicalView.Text = "Logical views";
+            this.tabLogicalView.Text = "Search Engine";
             this.tabLogicalView.UseVisualStyleBackColor = true;
-            // 
-            // termFreDataGridView
-            // 
-            this.termFreDataGridView.AutoGenerateColumns = false;
-            this.termFreDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.termFreDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7});
-            this.termFreDataGridView.DataSource = this.termFreBindingSource;
-            this.termFreDataGridView.Location = new System.Drawing.Point(328, 350);
-            this.termFreDataGridView.Name = "termFreDataGridView";
-            this.termFreDataGridView.Size = new System.Drawing.Size(423, 222);
-            this.termFreDataGridView.TabIndex = 39;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Term";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Term";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "DocId";
-            this.dataGridViewTextBoxColumn6.HeaderText = "DocId";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "TermFrequency";
-            this.dataGridViewTextBoxColumn7.HeaderText = "TermFrequency";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             // 
             // termFreBindingSource
             // 
             this.termFreBindingSource.DataMember = "TermFre";
             this.termFreBindingSource.DataSource = this.dBDataSet;
             // 
-            // termIdfDataGridView
-            // 
-            this.termIdfDataGridView.AutoGenerateColumns = false;
-            this.termIdfDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.termIdfDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.termIdfDataGridView.DataSource = this.termIdfBindingSource;
-            this.termIdfDataGridView.Location = new System.Drawing.Point(6, 350);
-            this.termIdfDataGridView.Name = "termIdfDataGridView";
-            this.termIdfDataGridView.Size = new System.Drawing.Size(316, 222);
-            this.termIdfDataGridView.TabIndex = 39;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Term";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Term";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "idf";
-            this.dataGridViewTextBoxColumn4.HeaderText = "idf";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
             // termIdfBindingSource
             // 
             this.termIdfBindingSource.DataMember = "TermIdf";
             this.termIdfBindingSource.DataSource = this.dBDataSet;
             // 
-            // button1
+            // button_Search
             // 
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.button1.Location = new System.Drawing.Point(478, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(273, 35);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.button_Search.Location = new System.Drawing.Point(478, 6);
+            this.button_Search.Name = "button_Search";
+            this.button_Search.Size = new System.Drawing.Size(273, 35);
+            this.button_Search.TabIndex = 39;
+            this.button_Search.Text = "Search";
+            this.button_Search.UseVisualStyleBackColor = true;
+            this.button_Search.Click += new System.EventHandler(this.button_Search_Click);
             // 
-            // textBox1
+            // textBox_Search
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.textBox1.Location = new System.Drawing.Point(6, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(466, 35);
-            this.textBox1.TabIndex = 37;
+            this.textBox_Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.textBox_Search.Location = new System.Drawing.Point(6, 6);
+            this.textBox_Search.Name = "textBox_Search";
+            this.textBox_Search.Size = new System.Drawing.Size(466, 35);
+            this.textBox_Search.TabIndex = 37;
             // 
             // queryResDataGridView
             // 
@@ -407,7 +338,7 @@
             this.queryResDataGridView.DataSource = this.queryResBindingSource;
             this.queryResDataGridView.Location = new System.Drawing.Point(6, 47);
             this.queryResDataGridView.Name = "queryResDataGridView";
-            this.queryResDataGridView.Size = new System.Drawing.Size(745, 297);
+            this.queryResDataGridView.Size = new System.Drawing.Size(745, 545);
             this.queryResDataGridView.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn1
@@ -529,9 +460,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dBDataSet)).EndInit();
             this.tabLogicalView.ResumeLayout(false);
             this.tabLogicalView.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.termFreDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.termIdfDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResBindingSource)).EndInit();
@@ -576,22 +505,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource queryResBindingSource;
         private DBDataSetTableAdapters.QueryResTableAdapter queryResTableAdapter;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button_Search;
+        private System.Windows.Forms.TextBox textBox_Search;
         private System.Windows.Forms.DataGridView queryResDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.BindingSource termIdfBindingSource;
         private DBDataSetTableAdapters.TermIdfTableAdapter termIdfTableAdapter;
-        private System.Windows.Forms.DataGridView termIdfDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.BindingSource termFreBindingSource;
         private DBDataSetTableAdapters.TermFreTableAdapter termFreTableAdapter;
-        private System.Windows.Forms.DataGridView termFreDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
     }
 }
 

@@ -49,13 +49,12 @@ namespace HW4
             double[] df_idf = new double[2];            
                 searchDocument = "";
                 searchTerm = textBox_Term.Text;
-                df_idf = Loader.calcularDf_IDF(path, searchTerm, searchDocument, true);
+                df_idf = Loader.CalcularDf_IDF(path, searchTerm, searchDocument, true);
                 textBox_DocumentFrequency.Text = df_idf[0].ToString();
                 textBox_InverseDF.Text = df_idf[1].ToString();
+                
 
             ReloadTables();
-            
-
         }
         /**
          * VENTANAS DE ALERTA
@@ -103,6 +102,9 @@ namespace HW4
             else
             {
                 button_CalculateDFandIDF.Enabled = false;
+                textBox_DocumentFrequency.Text = "";
+                textBox_InverseDF.Text = "";
+                textBox1_TermFrequency.Text = "";
             }
         }
 
@@ -116,8 +118,6 @@ namespace HW4
 
         }
         
-        
-
         private void button_CalculateTf_Click(object sender, EventArgs e)
         {
             String searchDocument;
@@ -142,6 +142,7 @@ namespace HW4
             {
                 button_CalculateTf.Enabled = false;
                 button_CalculateDFandIDF.Enabled = true;
+                textBox1_TermFrequency.Text = "";
             }
         }
 
@@ -163,6 +164,12 @@ namespace HW4
             docsTableAdapter.Fill(dBDataSet.Docs);
             termFreTableAdapter.Fill(dBDataSet.TermFre);
             termIdfTableAdapter.Fill(dBDataSet.TermIdf);
+        }
+
+        private void button_Search_Click(object sender, EventArgs e)
+        {
+            Loader.search(textBox_Search.Text, path);
+            queryResTableAdapter.Fill(dBDataSet.QueryRes);
         }
     }
 }
