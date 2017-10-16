@@ -32,24 +32,22 @@ namespace HW4.Controller
             {
                 try
                 {
+                    matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
+                    matrix[i, 2] = matrix[i, 2].Replace(", ", " ");
+                    matrix[i, 2] = matrix[i, 2].Replace(": ", " ");
+                    matrix[i, 2] = matrix[i, 2].Replace("; ", " ");
+                    matrix[i, 2] = matrix[i, 2].Replace("\" ", " ");
+                    matrix[i, 2] = matrix[i, 2].Replace("(", string.Empty);
+                    matrix[i, 2] = matrix[i, 2].Replace(")", string.Empty);
+                    
+                    newMatrix = matrix[i, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-                
-                matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
-                matrix[i, 2] = matrix[i, 2].Replace(", ", " ");
-                matrix[i, 2] = matrix[i, 2].Replace(": ", " ");
-                matrix[i, 2] = matrix[i, 2].Replace("; ", " ");
-                matrix[i, 2] = matrix[i, 2].Replace("\" ", " ");
-                matrix[i, 2] = matrix[i, 2].Replace("(", string.Empty);
-                matrix[i, 2] = matrix[i, 2].Replace(")", string.Empty);
+                    for (int j = 0; j < newMatrix.Count(); j++)
+                    {
+                        newLinkedList.AddLast(newMatrix[j]);
+                    }
 
-                newMatrix = matrix[i, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-                for (int j = 0; j < newMatrix.Count(); j++)
-                {
-                    newLinkedList.AddLast(newMatrix[j]);
-                }
-
-                wordCount = wordCount + newMatrix.Count();
+                    wordCount = wordCount + newMatrix.Count();
                 }
                 catch { }
             }
@@ -61,7 +59,6 @@ namespace HW4.Controller
 
 
         }
-
 
         public int Get_d(String[,] matrix)
         {
@@ -104,7 +101,7 @@ namespace HW4.Controller
 
             return d;
         }
-        
+
         //Para desplegar el idf y df de todo
         public double[] calcularDf_iDF(String[,] matrix, String searchTerm)
         {
@@ -113,7 +110,7 @@ namespace HW4.Controller
             double aux2, aux3;
             int aux1 = 0;
             String newMatrix;
-            
+
             //Buscar el indice del documento FALTA AGREGAR EXCEPTION EN CASO DE QUE NO LO ENCUENTRE
             //Buscar el indice del termino:
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -132,19 +129,19 @@ namespace HW4.Controller
 
                     newMatrix = matrix[i, 2];
 
-                   
+
 
                 }
                 catch { }
             }
             //CONTEO DE PALABRAS
-            
-            for (int i =0; i < matrix.GetLength(0); i++)
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 if (matrix[i, 2].Contains(searchTerm))
                 {
                     df++;
-                    
+
                 }
                 else
                 {
@@ -171,10 +168,10 @@ namespace HW4.Controller
 
         public String[,] queryIdf(String[,] matrix, String query)
         {
-            String[,] arraySim = new String[matrix.GetLength(0),2];
+            String[,] arraySim = new String[matrix.GetLength(0), 2];
             String[] newMatrix;
             String[] querySplitted;
-            double idf, simi =0;
+            double idf, simi = 0;
             query = query.Replace(". ", " ");
             query = query.Replace(", ", " ");
             query = query.Replace(": ", " ");
@@ -184,7 +181,7 @@ namespace HW4.Controller
             query = query.Replace(")", string.Empty);
             querySplitted = query.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i< matrix.GetLength(0); i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 simi = 0;
                 matrix[i, 2] = matrix[i, 2].Replace(". ", " ");
@@ -202,21 +199,23 @@ namespace HW4.Controller
                     {
                         idf = 0;
                     }
-                    else {  
-                    idf = Math.Log10(matrix.GetLength(0) / getDF(querySplitted[j], matrix));
+                    else
+                    {
+                        idf = Math.Log10(matrix.GetLength(0) / getDF(querySplitted[j], matrix));
                     }
 
                     simi = simi + (getOcurrences(querySplitted[j], newMatrix) * idf);
                 }
-                arraySim[i,0] = matrix[i, 0];
+                arraySim[i, 0] = matrix[i, 0];
                 arraySim[i, 1] = simi.ToString();
             }
-            
+
 
 
 
             return arraySim;
         }
+
         private float getDF(String term, String[,] matrix)
         {
             String[] newMatrix;
@@ -250,7 +249,6 @@ namespace HW4.Controller
 
         }
 
-
         private float getOcurrences(String term, String[] documento)
         {
             int aux = 0;
@@ -261,19 +259,19 @@ namespace HW4.Controller
                     aux++;
                 }
             }
-                return aux;
-            }
+            return aux;
+        }
 
         public double TermFrequency(String[,] matrix, String[] terms, String searchTerm, String searchDocument)
         {
-            
+
             double[] df_idf = { 0, 0 };
             double tf = 0;
             int documentIndex;
             double aux1 = 0;
             documentIndex = 0;
             String[] arrayAux;
-            
+
             //Buscar el indice del documento FALTA AGREGAR EXCEPTION EN CASO DE QUE NO LO ENCUENTRE
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
@@ -298,8 +296,8 @@ namespace HW4.Controller
             //Calcular TF de un documento especifico
 
             arrayAux = matrix[documentIndex, 2].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-           
-            for(int i = 0; i< arrayAux.GetLength(0); i++)
+
+            for (int i = 0; i < arrayAux.GetLength(0); i++)
             {
                 if (arrayAux[i].Equals(searchTerm))
                 {
@@ -309,5 +307,6 @@ namespace HW4.Controller
             aux1 = Convert.ToDouble(matrix.GetLength(0));
             return tf;
         }
+
     }
 }

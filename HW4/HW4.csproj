@@ -61,7 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Collection.cs" />
+    <Compile Include="Controller\CustomExtensions.cs" />
+    <Compile Include="Controller\DataMapper.cs" />
     <Compile Include="Controller\LoadCollection.cs" />
+    <Compile Include="Controller\Query.cs" />
+    <Compile Include="Controller\Term.cs" />
     <Compile Include="Controller\Wrapper.cs" />
     <Compile Include="Controller\Operations.cs" />
     <Compile Include="Controller\SplitFile.cs" />

@@ -12,19 +12,18 @@ namespace HW4.Controller
 {
     class LoadCollection
     {
-
         Form1 interfaz;
         SplitFile splitter;
         Operations operation;
         SqlConnection connection;
+        Query Query;
         public LoadCollection()
         {
             interfaz = new Form1();
             operation = new Operations();
-
         }
 
-        public double LoadFile(String path, String searchTerm, String searchDocument, Boolean calcularDF_IDF)
+        public Double LoadFile(String path, String searchTerm, String searchDocument, Boolean calcularDF_IDF)
         {
             String error;
             String[,] matrix;
@@ -33,7 +32,7 @@ namespace HW4.Controller
             //loads path
             try
             {
-               
+
                 File.Exists(path);
 
                 TextReader textReader = File.OpenText(path);
@@ -221,11 +220,8 @@ namespace HW4.Controller
                                 }
                             }
                         }
-                
-                    
             }
             catch { }
-
 
         }
 
@@ -288,8 +284,6 @@ namespace HW4.Controller
                     }
                    
                 }
-
-                interfaz.LoadDataTable(matrix); //Llena la tabla
             }
             catch (Exception ex)
             {

@@ -15,14 +15,14 @@ namespace HW4
     {
 
         Controller.LoadCollection Loader;
-        Controller.Wrapper Control;
 
         String path = "";
         public Form1()
         {
             InitializeComponent();
         }
-        //Menú
+
+        //File Tool Strip Menu
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Loader = new Controller.LoadCollection();
@@ -41,7 +41,8 @@ namespace HW4
 
 
         }
-        //Botones
+        
+        //Buttons
         private void button_CalculateDFandIDF_MouseClick(object sender, MouseEventArgs e)
         {
             String searchDocument;
@@ -54,12 +55,29 @@ namespace HW4
                 textBox_InverseDF.Text = df_idf[1].ToString();
                 
 
-            ReloadTables();
+            updateTableAdapters();
         }
-        /**
-         * VENTANAS DE ALERTA
-         * 
-         */
+
+        private void button_CalculateTf_Click(object sender, EventArgs e)
+        {
+            String searchDocument;
+            String searchTerm;
+            double[] df_idf = new double[2];
+            Double tf = 0;
+            searchDocument = textBox_DocumentTitle.Text;
+            searchTerm = textBox_Term.Text;
+            tf = Loader.LoadFile(path, searchTerm, searchDocument, false);
+            textBox1_TermFrequency.Text = tf.ToString();
+
+        }
+
+        private void button_Search_Click(object sender, EventArgs e)
+        {
+            Loader.search(textBox_Search.Text, path);
+            queryResTableAdapter.Fill(dBDataSet.QueryRes);
+        }
+
+        //MessageBox
         public void messageBox_loaderAlert(String errorMessage)
         {
             MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -82,17 +100,8 @@ namespace HW4
             
         }
 
-        public void LoadDataTable(String[,] content)
-        {
-            DataTable table = new DataTable();
-            table.Columns.Add("Document ID", typeof(String));
-            table.Columns.Add("Document Title", typeof(String));
-            table.Rows.Add("Uno", "DOS");
-           
-        }
 
-        //Changes
-
+        //TextBox Changes
         private void textBox_Term_TextChanged(object sender, EventArgs e)
         {
             if (textBox_Term.Text != String.Empty)
@@ -108,29 +117,11 @@ namespace HW4
             }
         }
 
-        private void button_CalculateDFandIDF_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
         
-        private void button_CalculateTf_Click(object sender, EventArgs e)
-        {
-            String searchDocument;
-            String searchTerm;
-            double[] df_idf = new double[2];
-            Double tf = 0;
-            searchDocument = textBox_DocumentTitle.Text;
-            searchTerm = textBox_Term.Text;
-            tf = Loader.LoadFile(path, searchTerm, searchDocument, false);
-            textBox1_TermFrequency.Text = tf.ToString();
-
-        }
-
         private void textBox_DocumentTitle_TextChanged(object sender, EventArgs e)
         {
             if (textBox_DocumentTitle.Text != String.Empty && textBox_Term.Text != String.Empty)
@@ -146,30 +137,23 @@ namespace HW4
             }
         }
 
+        //Loads Form
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dBDataSet.TermFre' table. You can move, or remove it, as needed.
             try
             {
                 docsTableAdapter.Fill(dBDataSet.Docs);
-                termFreTableAdapter.Fill(dBDataSet.TermFre);
-                termIdfTableAdapter.Fill(dBDataSet.TermIdf);
             }
             catch{ }
         }
 
-        public void ReloadTables()
+        //Update tables
+        public void updateTableAdapters()
         {
             queryResTableAdapter.Fill(dBDataSet.QueryRes);
             docsTableAdapter.Fill(dBDataSet.Docs);
-            termFreTableAdapter.Fill(dBDataSet.TermFre);
-            termIdfTableAdapter.Fill(dBDataSet.TermIdf);
-        }
-
-        private void button_Search_Click(object sender, EventArgs e)
-        {
-            Loader.search(textBox_Search.Text, path);
-            queryResTableAdapter.Fill(dBDataSet.QueryRes);
         }
     }
 }
