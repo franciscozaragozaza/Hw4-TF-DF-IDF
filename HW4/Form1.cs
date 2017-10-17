@@ -74,7 +74,7 @@ namespace HW4
         private void button_Search_Click(object sender, EventArgs e)
         {
             Loader.search(textBox_Search.Text, path);
-            queryResTableAdapter.Fill(dBDataSet.QueryRes);
+            updateTableAdapters();
         }
 
         //MessageBox
@@ -96,8 +96,7 @@ namespace HW4
                 default: //INFO
                     MessageBox.Show(text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
-            }
-            
+            }    
         }
 
 
@@ -153,7 +152,48 @@ namespace HW4
         public void updateTableAdapters()
         {
             queryResTableAdapter.Fill(dBDataSet.QueryRes);
+            queryResDataGridView.Sort(queryResDataGridView.Columns[1], ListSortDirection.Descending);
             docsTableAdapter.Fill(dBDataSet.Docs);
+        }
+
+
+        /// <summary>
+        /// Button to start the relevance feedback algorithm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_RelevanceFeedback_Click(object sender, EventArgs e)
+        {
+            string irrelevantDoc;
+            Int32 selectedRowCount = queryResDataGridView.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            if (selectedRowCount > 0)
+            {
+                string[] relevantDocs = new string[selectedRowCount];
+
+                for (int i = 0; i < selectedRowCount; i++)
+                {
+                    relevantDocs[i] = queryResDataGridView.SelectedRows[i].Cells[0].Value.ToString();
+                }
+                /*Get the irrelevant document with the highest similarity*/
+                for (int i = 0; i < queryResDataGridView.RowCount; i++)
+                {
+                    if (queryResDataGridView.Rows[i].Cells[0].Value.ToString().Equals(relevantDocs[0]))
+                    {
+                        irrelevantDoc = queryResDataGridView.Rows[i].Cells[0].Value.ToString();
+                    }
+                }
+
+                
+                //Loader.RelvanceFeedback(relevantDocs);
+
+                //Cambiar el textbox con las nuevas palabras
+                //textBox_Search.Text = ;
+            }
+        }
+
+        public string getQueryTextBox()
+        {
+            return textBox_Search.Text.ToString();
         }
     }
 }

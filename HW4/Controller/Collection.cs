@@ -24,18 +24,10 @@ namespace HW4.Controller
             try
             {
                 File.Exists(path);
-
-                string AllLines; //New string of max size.
-                AllLines = File.ReadLines(path).ToString();
-                SplitFile(path, collectionName);
-                //For óptimo para múltiples lineas de texto.
-                //Parallel.For(0, AllLines.Length, i =>
-                //{
-                //    TestReadingAndProcessingLinesFromFile_DoStuff(AllLines[i]);
-                //});
+                string[] splittedFile;
+                splittedFile = SplitFile(path, collectionName);
                 
                 //Agregar a la BD
-
             }
             catch(Exception ex)
             {

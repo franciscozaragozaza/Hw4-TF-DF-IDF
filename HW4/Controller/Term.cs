@@ -42,7 +42,7 @@ namespace HW4.Controller
             }//end if
             else
             {
-                m = dataMapper.getDocumentCount(TermValue); //gets how many documents are in the collection.
+                m = dataMapper.GetDocumentCount(TermValue); //gets how many documents are in the collection.
                 docFreq = getDF(); //gets document frequency of the term.
                 invDocFreq = Math.Log10(docFreq / m);
                 return invDocFreq;
@@ -61,7 +61,7 @@ namespace HW4.Controller
             }//end if
             else
             {
-                docFreq = dataMapper.getTermDocFreq(TermValue); //Counts the number of entries for a term. 
+                docFreq = dataMapper.GetTermDocFreq(TermValue); //Counts the number of entries for a term. 
                 return docFreq;
             }//end else
         }
@@ -75,11 +75,12 @@ namespace HW4.Controller
             if (isNull())
             {
                 int[] fail = new int[] { -1, -1 };
+                Console.WriteLine("Posting table is empty.");
                 return fail;
             }//end if
             else
             {
-                postingTable = dataMapper.getPostingTable(TermValue); //Returns an array with the posting table.
+                postingTable = dataMapper.GetPostingTable(TermValue); //Returns an array with the posting table.
                 return postingTable;
             }//end else
         }

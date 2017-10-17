@@ -51,14 +51,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_Term = new System.Windows.Forms.TextBox();
             this.tabLogicalView = new System.Windows.Forms.TabPage();
-            this.termFreBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.termIdfBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button_RelevanceFeedback = new System.Windows.Forms.Button();
             this.button_Search = new System.Windows.Forms.Button();
             this.textBox_Search = new System.Windows.Forms.TextBox();
             this.queryResDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.queryResBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.termFreBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.termIdfBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,10 +78,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.docsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBDataSet)).BeginInit();
             this.tabLogicalView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -288,6 +289,7 @@
             // tabLogicalView
             // 
             this.tabLogicalView.AutoScroll = true;
+            this.tabLogicalView.Controls.Add(this.button_RelevanceFeedback);
             this.tabLogicalView.Controls.Add(this.button_Search);
             this.tabLogicalView.Controls.Add(this.textBox_Search);
             this.tabLogicalView.Controls.Add(this.queryResDataGridView);
@@ -299,15 +301,17 @@
             this.tabLogicalView.Text = "Search Engine";
             this.tabLogicalView.UseVisualStyleBackColor = true;
             // 
-            // termFreBindingSource
+            // button_RelevanceFeedback
             // 
-            this.termFreBindingSource.DataMember = "TermFre";
-            this.termFreBindingSource.DataSource = this.dBDataSet;
-            // 
-            // termIdfBindingSource
-            // 
-            this.termIdfBindingSource.DataMember = "TermIdf";
-            this.termIdfBindingSource.DataSource = this.dBDataSet;
+            this.button_RelevanceFeedback.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.button_RelevanceFeedback.ForeColor = System.Drawing.Color.Black;
+            this.button_RelevanceFeedback.Location = new System.Drawing.Point(562, 542);
+            this.button_RelevanceFeedback.Name = "button_RelevanceFeedback";
+            this.button_RelevanceFeedback.Size = new System.Drawing.Size(190, 50);
+            this.button_RelevanceFeedback.TabIndex = 40;
+            this.button_RelevanceFeedback.Text = "Apply RF";
+            this.button_RelevanceFeedback.UseVisualStyleBackColor = true;
+            this.button_RelevanceFeedback.Click += new System.EventHandler(this.Button_RelevanceFeedback_Click);
             // 
             // button_Search
             // 
@@ -338,7 +342,7 @@
             this.queryResDataGridView.DataSource = this.queryResBindingSource;
             this.queryResDataGridView.Location = new System.Drawing.Point(6, 47);
             this.queryResDataGridView.Name = "queryResDataGridView";
-            this.queryResDataGridView.Size = new System.Drawing.Size(745, 545);
+            this.queryResDataGridView.Size = new System.Drawing.Size(745, 248);
             this.queryResDataGridView.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn1
@@ -358,6 +362,16 @@
             // 
             this.queryResBindingSource.DataMember = "QueryRes";
             this.queryResBindingSource.DataSource = this.dBDataSet;
+            // 
+            // termFreBindingSource
+            // 
+            this.termFreBindingSource.DataMember = "TermFre";
+            this.termFreBindingSource.DataSource = this.dBDataSet;
+            // 
+            // termIdfBindingSource
+            // 
+            this.termIdfBindingSource.DataMember = "TermIdf";
+            this.termIdfBindingSource.DataSource = this.dBDataSet;
             // 
             // menuStrip1
             // 
@@ -460,10 +474,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dBDataSet)).EndInit();
             this.tabLogicalView.ResumeLayout(false);
             this.tabLogicalView.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryResBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termFreBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.termIdfBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -514,6 +528,7 @@
         private DBDataSetTableAdapters.TermIdfTableAdapter termIdfTableAdapter;
         private System.Windows.Forms.BindingSource termFreBindingSource;
         private DBDataSetTableAdapters.TermFreTableAdapter termFreTableAdapter;
+        private System.Windows.Forms.Button button_RelevanceFeedback;
     }
 }
 

@@ -249,6 +249,11 @@ namespace HW4.Controller
 
         }
 
+        public double getWeights(string[] vocabulary, string inputText)
+        {
+            throw new NotImplementedException();
+        }
+
         private float getOcurrences(String term, String[] documento)
         {
             int aux = 0;
@@ -308,5 +313,11 @@ namespace HW4.Controller
             return tf;
         }
 
+        public double[] getTermFrequency(String text)
+        {
+            //Clase fantasma
+            double[] arrayIdf = new double[1];
+            return arrayIdf;
+        }
     }
 }

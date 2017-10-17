@@ -17,20 +17,29 @@ namespace HW4.Controller
 
         //Get term methods
 
-        public int getDocumentCount(String term)
+        public int GetDocumentCount(String term)
         {
             return 1;
         }
 
-        public int getTermDocFreq(String term)
+        public int GetTermDocFreq(String term)
         {
             return 1;
         }
 
-        public int[] getPostingTable(String term)
+        public int[] GetPostingTable(String term)
         {
             int[] prueba = { 1, 2 };
             return prueba;
+        }
+
+        public void InsertToDocs(String[] docString)
+        {
+
+        }
+        public void InsertToPosting()
+        {
+
         }
     }
 }
